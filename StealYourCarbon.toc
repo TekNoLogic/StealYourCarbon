@@ -1,0 +1,18 @@
+## Interface: 20300
+
+## Title: Steal Your Carbon
+## Notes: Automatically restock items from vendors and your bank
+## Author: Tekkub Stoutwrithe
+## Version: Alpha
+## X-Website: http://code.google.com/p/tekkub-wow/
+## X-Email: tekkub-wow@googlegroups.com
+
+## SavedVariablesPerCharacter: StealYourCarbonDB
+
+## LoadManagers: AddonLoader
+## X-LoadOn-Slash: /carbon, /syc
+## X-LoadOn-Merchant: true
+## X-LoadOn-Bank: true
+
+StealYourCarbon.lua
+SlashHandler.lua
