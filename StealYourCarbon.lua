@@ -52,8 +52,9 @@ end
 
 function StealYourCarbon:MERCHANT_SHOW()
 	for i=1,GetMerchantNumItems() do
-		local itemID = ids[GetMerchantItemLink(i)]
-		if self.db.stocklist[itemID] then
+		local link = GetMerchantItemLink(i)
+		local itemID = link and ids[link]
+		if itemID and self.db.stocklist[itemID] then
 			local needed = self.db.stocklist[itemID] - GetItemCount(itemID)
 			if needed > 0 then
 				local _, _, _, qty, avail = GetMerchantItemInfo(i)
