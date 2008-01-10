@@ -1,4 +1,4 @@
-## Interface: 20302
+## Interface: 20300
 
 ## Title: Steal Your Carbon
 ## Notes: Automatically restock items from vendors and your bank
