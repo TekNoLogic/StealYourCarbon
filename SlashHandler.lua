@@ -35,7 +35,7 @@ end
 
 function StealYourCarbon:CMD_DEL(input)
 	local id = string.match(input, "item:(%d+):")
-	if not id or not qty then return self:Print("Usage: /carbon del [Item Link]") end
+	if not id then return self:Print("Usage: /carbon del [Item Link]") end
 	self.db.stocklist[tonumber(id)] = nil
 	self:Print("Removed", select(2, GetItemInfo(id)))
 end
