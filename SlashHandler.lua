@@ -20,6 +20,7 @@ SlashCmdList.CARBON = function(input)
 		ChatFrame1:AddMessage("   |cffff9933del|r: Remove an item from the restock list")
 		ChatFrame1:AddMessage("   |cffff9933list|r: List current restock items")
 		ChatFrame1:AddMessage("   |cffff9933overstock|r: Ensure that the quantity specified is always purchased for items offered in stacks from vendor")
+		ChatFrame1:AddMessage("   |cffff9933upgradewater|r: Automatically upgrade to better water as player levels")
 		ChatFrame1:AddMessage("   |cffff9933chatter|r: Give chat feedback when purchasing items")
 	end
 end
@@ -60,3 +61,7 @@ function StealYourCarbon:CMD_CHATTER()
 end
 
 
+function StealYourCarbon:CMD_UPGRADEWATER()
+	self.db.upgradewater = not self.db.upgradewater
+	self:Print("Auto-upgrading water", (self.db.upgradewater and "|cff00ff00enabled" or "|cffff0000disabled"))
+end
