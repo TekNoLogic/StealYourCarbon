@@ -10,18 +10,23 @@ SLASH_CARBON1 = "/carbon"
 SLASH_CARBON2 = "/syc"
 SlashCmdList.CARBON = function(input)
 	local cmd, rest = string.match(input, "^%s*(%S+)%s*(.*)$")
-	local handler = cmd and StealYourCarbon["CMD_"..cmd:upper()]
-
-	if handler then handler(StealYourCarbon, rest)
+	if not cmd then
+		InterfaceOptionsFrame_OpenToFrame(StealYourCarbon.configframe)
 	else
-		StealYourCarbon:Print("Automatically restock items from vendors and your bank")
-		ChatFrame1:AddMessage(" /carbon /syc")
-		ChatFrame1:AddMessage("   |cffff9933add|r: Add an item to be restocked")
-		ChatFrame1:AddMessage("   |cffff9933del|r: Remove an item from the restock list")
-		ChatFrame1:AddMessage("   |cffff9933list|r: List current restock items")
-		ChatFrame1:AddMessage("   |cffff9933overstock|r: Ensure that the quantity specified is always purchased for items offered in stacks from vendor")
-		ChatFrame1:AddMessage("   |cffff9933upgradewater|r: Automatically upgrade to better water as player levels")
-		ChatFrame1:AddMessage("   |cffff9933chatter|r: Give chat feedback when purchasing items")
+		local handler = StealYourCarbon["CMD_"..cmd:upper()]
+
+		if handler then handler(StealYourCarbon, rest)
+		else
+			StealYourCarbon:Print("Automatically restock items from vendors and your bank")
+			ChatFrame1:AddMessage(" /carbon /syc")
+			ChatFrame1:AddMessage("   |cffff9933(no command)|r: Open config panel")
+			ChatFrame1:AddMessage("   |cffff9933add|r: Add an item to be restocked")
+			ChatFrame1:AddMessage("   |cffff9933del|r: Remove an item from the restock list")
+			ChatFrame1:AddMessage("   |cffff9933list|r: List current restock items")
+			ChatFrame1:AddMessage("   |cffff9933overstock|r: Ensure that the quantity specified is always purchased for items offered in stacks from vendor")
+			ChatFrame1:AddMessage("   |cffff9933upgradewater|r: Automatically upgrade to better water as player levels")
+			ChatFrame1:AddMessage("   |cffff9933chatter|r: Give chat feedback when purchasing items")
+		end
 	end
 end
 
