@@ -18,7 +18,7 @@ LibStub.lua
 tekKonfigHeading.lua
 tekKonfigFadeIn.lua
 tekKonfigCheckbox.lua
+tekKonfigButton.lua
 
 StealYourCarbon.lua
-SlashHandler.lua
 Config.lua

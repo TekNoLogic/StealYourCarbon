@@ -50,6 +50,57 @@ function StealYourCarbon:UpgradeWater()
 end
 
 
+-----------------------------
+--      Slash Command      --
+-----------------------------
+
+SLASH_CARBON1 = "/carbon"
+SLASH_CARBON2 = "/syc"
+SlashCmdList.CARBON = function(input)
+	if input == "" then
+		InterfaceOptionsFrame_OpenToFrame(StealYourCarbon.configframe)
+	else
+		local id, qty = string.match(input, "add .*item:(%d+):.*%s+(%d+)%s*$")
+		if id and qty then
+			self.db.stocklist[tonumber(id)] = tonumber(qty)
+			self:PrintF("Added %s x%d", select(2, GetItemInfo(id)), qty)
+		else
+			StealYourCarbon:Print("Automatically restock items from vendors and your bank")
+			ChatFrame1:AddMessage(" /carbon /syc")
+			ChatFrame1:AddMessage("   |cffff9933(no command)|r: Open config panel")
+			ChatFrame1:AddMessage("   |cffff9933add [Item Link] quantity|r: Add an item to be restocked")
+		end
+	end
+end
+
+
+-------------------------------
+--      Merchant Button      --
+-------------------------------
+
+local addbutton = LibStub("tekKonfig-Button").new(MerchantFrame, true, "TOPRIGHT", -40, -40)
+addbutton:SetWidth(120)
+addbutton:SetText("Steal Your Carbon")
+addbutton.tiptext = "Drop an item to add it to your restock list.  Click to open the config panel."
+addbutton:SetScript("OnClick", function(self) InterfaceOptionsFrame_OpenToFrame(StealYourCarbon.configframe) end)
+addbutton:SetScript("OnReceiveDrag", function(self)
+	local infotype, itemid, itemlink = GetCursorInfo()
+	if infotype == "item" then
+		local _, _, _, _, _, _, _, stack = GetItemInfo(itemid)
+		StealYourCarbon.db.stocklist[itemid] = stack
+		StealYourCarbon:PrintF("Added %s x%d", itemlink, stack)
+	elseif infotype == "merchant" then
+		local itemlink = GetMerchantItemLink(itemid)
+		itemid = tonumber(itemlink:match("item:(%d+):"))
+		local _, _, _, _, _, _, _, stack = GetItemInfo(itemid)
+		StealYourCarbon.db.stocklist[itemid] = stack
+		StealYourCarbon:PrintF("Added %s x%d", itemlink, stack)
+	end
+
+	return ClearCursor()
+end)
+
+
 ----------------------
 --      Events      --
 ----------------------

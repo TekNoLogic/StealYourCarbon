@@ -7,7 +7,7 @@ local frame = CreateFrame("Frame", "StealYourCarbonConfig", UIParent)
 frame.name = "Steal Your Carbon"
 frame:SetScript("OnShow", function(frame)
 	local StealYourCarbon = StealYourCarbon
-	local title, subtitle = LibStub("tekKonfig-Heading").new(frame, "Steal Your Carbon", "To add items to SYC's list, drop them in the slots below.  Click an item to edit it's quantity.  Set the quantity to 0 to remove the item.")
+	local title, subtitle = LibStub("tekKonfig-Heading").new(frame, "Steal Your Carbon", "To add items to SYC's list, visit a merchant or type '/carbon add [Item Link] 20'.  Set the quantity to 0 to remove the item.")
 
 
 	local overstock = tekcheck.new(frame, nil, "Overstock items", "TOPLEFT", subtitle, "BOTTOMLEFT", -2, -GAP)
