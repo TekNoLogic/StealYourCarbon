@@ -64,6 +64,7 @@ SlashCmdList.CARBON = function(input)
 		if id and qty then
 			self.db.stocklist[tonumber(id)] = tonumber(qty)
 			self:PrintF("Added %s x%d", select(2, GetItemInfo(id)), qty)
+			self:UpdateConfigList()
 		else
 			StealYourCarbon:Print("Automatically restock items from vendors and your bank")
 			ChatFrame1:AddMessage(" /carbon /syc")
@@ -82,8 +83,13 @@ local addbutton = LibStub("tekKonfig-Button").new(MerchantFrame, true, "TOPRIGHT
 addbutton:SetWidth(120)
 addbutton:SetText("Steal Your Carbon")
 addbutton.tiptext = "Drop an item to add it to your restock list.  Click to open the config panel."
-addbutton:SetScript("OnClick", function(self) InterfaceOptionsFrame_OpenToFrame(StealYourCarbon.configframe) end)
-addbutton:SetScript("OnReceiveDrag", function(self)
+addbutton:SetScript("OnClick", function(self)
+	if CursorHasItem() then StealYourCarbon.OnReceiveDrag(self)
+	else InterfaceOptionsFrame_OpenToFrame(StealYourCarbon.configframe) end
+end)
+
+
+function StealYourCarbon:OnReceiveDrag()
 	local infotype, itemid, itemlink = GetCursorInfo()
 	if infotype == "item" then
 		local _, _, _, _, _, _, _, stack = GetItemInfo(itemid)
@@ -96,9 +102,10 @@ addbutton:SetScript("OnReceiveDrag", function(self)
 		StealYourCarbon.db.stocklist[itemid] = stack
 		StealYourCarbon:PrintF("Added %s x%d", itemlink, stack)
 	end
-
+	StealYourCarbon:UpdateConfigList()
 	return ClearCursor()
-end)
+end
+addbutton:SetScript("OnReceiveDrag", StealYourCarbon.OnReceiveDrag)
 
 
 ----------------------
