@@ -83,29 +83,7 @@ local addbutton = LibStub("tekKonfig-Button").new(MerchantFrame, true, "TOPRIGHT
 addbutton:SetWidth(120)
 addbutton:SetText("Steal Your Carbon")
 addbutton.tiptext = "Drop an item to add it to your restock list.  Click to open the config panel."
-addbutton:SetScript("OnClick", function(self)
-	if CursorHasItem() then StealYourCarbon.OnReceiveDrag(self)
-	else InterfaceOptionsFrame_OpenToFrame(StealYourCarbon.configframe) end
-end)
-
-
-function StealYourCarbon:OnReceiveDrag()
-	local infotype, itemid, itemlink = GetCursorInfo()
-	if infotype == "item" then
-		local _, _, _, _, _, _, _, stack = GetItemInfo(itemid)
-		StealYourCarbon.db.stocklist[itemid] = stack
-		StealYourCarbon:PrintF("Added %s x%d", itemlink, stack)
-	elseif infotype == "merchant" then
-		local itemlink = GetMerchantItemLink(itemid)
-		itemid = tonumber(itemlink:match("item:(%d+):"))
-		local _, _, _, _, _, _, _, stack = GetItemInfo(itemid)
-		StealYourCarbon.db.stocklist[itemid] = stack
-		StealYourCarbon:PrintF("Added %s x%d", itemlink, stack)
-	end
-	StealYourCarbon:UpdateConfigList()
-	return ClearCursor()
-end
-addbutton:SetScript("OnReceiveDrag", StealYourCarbon.OnReceiveDrag)
+addbutton:SetScript("OnClick", function(self) InterfaceOptionsFrame_OpenToFrame(StealYourCarbon.configframe) end)
 
 
 ----------------------

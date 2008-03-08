@@ -36,6 +36,22 @@ frame:SetScript("OnShow", function(frame)
 	listlabel:SetText("Restock Items")
 
 
+	local function OnReceiveDrag()
+		local infotype, itemid, itemlink = GetCursorInfo()
+		if infotype == "item" then
+			local _, _, _, _, _, _, _, stack = GetItemInfo(itemid)
+			StealYourCarbon.db.stocklist[itemid] = stack
+			StealYourCarbon:PrintF("Added %s x%d", itemlink, stack)
+		elseif infotype == "merchant" then
+			local itemlink = GetMerchantItemLink(itemid)
+			itemid = tonumber(itemlink:match("item:(%d+):"))
+			local _, _, _, _, _, _, _, stack = GetItemInfo(itemid)
+			StealYourCarbon.db.stocklist[itemid] = stack
+			StealYourCarbon:PrintF("Added %s x%d", itemlink, stack)
+		end
+		StealYourCarbon:UpdateConfigList()
+		return ClearCursor()
+	end
 	local function OnClick(self)
 		PlaySound("UChatScrollButton")
 		local diff = (self.up and 1 or -1) * (IsShiftKeyDown() and select(8, GetItemInfo(self.row.id)) or 1)
@@ -46,7 +62,9 @@ frame:SetScript("OnShow", function(frame)
 		else self.row.down:Enable() end
 		self.row.count:SetText(StealYourCarbon.db.stocklist[self.row.id])
 	end
+	local function OnClick2() if CursorHasItem() then OnReceiveDrag() end end
 	local function ShowTooltip(self)
+		if not self.row.id then return end
 		local _, link = GetItemInfo(self.row.id)
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 		GameTooltip:SetHyperlink(link)
@@ -54,7 +72,7 @@ frame:SetScript("OnShow", function(frame)
 	local function HideTooltip() GameTooltip:Hide() end
 	for i=1,NUMROWS do
 		local row = CreateFrame("Frame", nil, frame)
-		if i == 1 then row:SetPoint("TOP", listlabel, "BOTTOM", 0, -4)
+		if i == 1 then row:SetPoint("TOP", listlabel, "BOTTOM", 0, -8)
 		else row:SetPoint("TOP", rows[i-1], "BOTTOM", 0, -6) end
 		if i <= NUMROWS then
 			row:SetPoint("LEFT", frame, EDGEGAP, 0)
@@ -69,6 +87,13 @@ frame:SetScript("OnShow", function(frame)
 		iconbutton.row = row
 		iconbutton:SetScript("OnEnter", ShowTooltip)
 		iconbutton:SetScript("OnLeave", HideTooltip)
+		iconbutton:SetScript("OnReceiveDrag", OnReceiveDrag)
+		iconbutton:SetScript("OnClick", OnClick2)
+
+		local buttonback = iconbutton:CreateTexture(nil, "ARTWORK")
+		buttonback:SetTexture("Interface\\Buttons\\UI-Quickslot2")
+		buttonback:SetPoint("CENTER")
+		buttonback:SetWidth(ICONSIZE*64/37) buttonback:SetHeight(ICONSIZE*64/37)
 
 		local icon = iconbutton:CreateTexture(nil, "ARTWORK")
 		icon:SetAllPoints()
@@ -112,8 +137,7 @@ frame:SetScript("OnShow", function(frame)
 		stack:SetJustifyH("LEFT")
 		stack:SetText("Stack Size: 20")
 
-		rows[i], row.icon, row.count, row.name, row.stack, row.down = row, icon, count, name, stack, down
-		row:Hide()
+		rows[i], row.icon, row.count, row.name, row.stack, row.down, row.up = row, icon, count, name, stack, down, up
 	end
 
 	frame:EnableMouseWheel()
@@ -121,14 +145,14 @@ frame:SetScript("OnShow", function(frame)
 		offset = offset - val
 		local items = 0
 		for i in pairs(StealYourCarbon.db.stocklist) do items = items + 1 end
-		if offset > (items - NUMROWS) then offset = items - NUMROWS end
+		if offset > (items - NUMROWS + 1) then offset = items - NUMROWS + 1 end
 		if offset < 0 then offset = 0 end
 		StealYourCarbon:UpdateConfigList()
 	end)
 	frame:SetScript("OnShow", function()
 		local items = 0
 		for i in pairs(StealYourCarbon.db.stocklist) do items = items + 1 end
-		if offset > (items - NUMROWS) then offset = items - NUMROWS end
+		if offset > (items - NUMROWS + 1) then offset = items - NUMROWS + 1 end
 		if offset < 0 then offset = 0 end
 		StealYourCarbon:UpdateConfigList()
 	end)
@@ -138,6 +162,7 @@ end)
 
 
 function StealYourCarbon:UpdateConfigList()
+	local emptyshown = false
 	local id, qty = next(self.db.stocklist)
 	for i=1,offset do id, qty = next(self.db.stocklist, id) end
 
@@ -146,12 +171,24 @@ function StealYourCarbon:UpdateConfigList()
 			row.id = id
 			local _, link, _, _, _, _, _, stack, _, texture = GetItemInfo(id)
 			row.icon:SetTexture(texture)
+			row.up:Enable()
 			if qty == 0 then row.down:Disable() else row.down:Enable() end
 			row.count:SetText(qty)
 			row.name:SetText(link)
 			row.stack:SetText("Stack Size: "..stack)
+			row.icon:Show()
 			row:Show()
 			id, qty = next(self.db.stocklist, id)
+		elseif not emptyshown then
+			emptyshown = true
+			row.id = nil
+			row.icon:Hide()
+			row.count:SetText()
+			row.name:SetText()
+			row.stack:SetText()
+			row.up:Disable()
+			row.down:Disable()
+			row:Show()
 		else
 			row:Hide()
 		end
