@@ -82,7 +82,6 @@ end
 local addbutton = LibStub("tekKonfig-Button").new(MerchantFrame, true, "TOPRIGHT", -40, -40)
 addbutton:SetWidth(120)
 addbutton:SetText("Steal Your Carbon")
-addbutton.tiptext = "Drop an item to add it to your restock list.  Click to open the config panel."
 addbutton:SetScript("OnClick", function(self) InterfaceOptionsFrame_OpenToFrame(StealYourCarbon.configframe) end)
 
 
