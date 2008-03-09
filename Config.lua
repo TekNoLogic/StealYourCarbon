@@ -38,16 +38,11 @@ frame:SetScript("OnShow", function(frame)
 
 	local function OnReceiveDrag()
 		local infotype, itemid, itemlink = GetCursorInfo()
-		if infotype == "item" then
-			local _, _, _, _, _, _, _, stack = GetItemInfo(itemid)
-			StealYourCarbon.db.stocklist[itemid] = stack
-			StealYourCarbon:PrintF("Added %s x%d", itemlink, stack)
+		if infotype == "item" then StealYourCarbon.db.stocklist[itemid] = select(8, GetItemInfo(itemid))
 		elseif infotype == "merchant" then
 			local itemlink = GetMerchantItemLink(itemid)
 			itemid = tonumber(itemlink:match("item:(%d+):"))
-			local _, _, _, _, _, _, _, stack = GetItemInfo(itemid)
-			StealYourCarbon.db.stocklist[itemid] = stack
-			StealYourCarbon:PrintF("Added %s x%d", itemlink, stack)
+			StealYourCarbon.db.stocklist[itemid] = select(8, GetItemInfo(itemid))
 		end
 		StealYourCarbon:UpdateConfigList()
 		return ClearCursor()
