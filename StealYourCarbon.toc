@@ -14,11 +14,7 @@
 ## X-LoadOn-Merchant: true
 ## X-LoadOn-Bank: true
 
-LibStub.lua
-tekKonfigHeading.lua
-tekKonfigFadeIn.lua
-tekKonfigCheckbox.lua
-tekKonfigButton.lua
+tekKonfig\tekKonfig.xml
 
 StealYourCarbon.lua
 Config.lua

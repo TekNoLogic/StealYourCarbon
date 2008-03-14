@@ -1,5 +1,5 @@
 
-local lib, oldminor = LibStub:NewLibrary("tekKonfig-Button", 1)
+local lib, oldminor = LibStub:NewLibrary("tekKonfig-Button", 2)
 if not lib then return end
 
 
@@ -15,15 +15,16 @@ end
 
 -- Create a button.
 -- All args optional, parent recommended
-function lib.new(parent, smallfont, ...)
+function lib.new(parent, ...)
 	local butt = CreateFrame("Button", nil, parent)
 	if select("#", ...) > 0 then butt:SetPoint(...) end
 	butt:SetWidth(80) butt:SetHeight(22)
 
 	-- Fonts --
+	butt:SetFont(GameFontNormal)
 	butt:SetDisabledFontObject(GameFontDisable)
-	butt:SetHighlightFontObject(smallfont and GameFontHighlightSmall or GameFontHighlight)
-	butt:SetTextFontObject(smallfont and GameFontNormalSmall or GameFontNormal)
+	butt:SetHighlightFontObject(GameFontHighlight)
+	butt:SetTextFontObject(GameFontNormal)
 
 	-- Textures --
 	butt:SetNormalTexture("Interface\\Buttons\\UI-Panel-Button-Up")
@@ -40,5 +41,13 @@ function lib.new(parent, smallfont, ...)
 	butt:SetScript("OnEnter", ShowTooltip)
 	butt:SetScript("OnLeave", HideTooltip)
 
+	return butt
+end
+
+
+function lib.new_small(parent, ...)
+	local butt = lib.new(parent, ...)
+	butt:SetHighlightFontObject(GameFontHighlightSmall)
+	butt:SetTextFontObject(GameFontNormalSmall)
 	return butt
 end
