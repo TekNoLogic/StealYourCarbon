@@ -193,3 +193,6 @@ end
 
 StealYourCarbon.configframe = frame
 InterfaceOptions_AddCategory(frame)
+
+
+LibStub("tekKonfig-AboutPanel").new("Steal Your Carbon", "StealYourCarbon")
