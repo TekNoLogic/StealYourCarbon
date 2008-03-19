@@ -29,6 +29,7 @@ function StealYourCarbon:PrintF(fmsg, ...) ChatFrame1:AddMessage(string.format("
 
 
 local waterupgrades = {27860,28399,8766,1645,1708,1205,1179,159}
+for i,t in pairs(waterupgrades) do for _,id in pairs(t) do GameTooltip:SetHyperlink("item:"..id) end end -- Query server to ensure GetItemInfo doesn't nil out.
 function StealYourCarbon:UpgradeWater()
 	local level = UnitLevel("player")
 
@@ -38,7 +39,7 @@ function StealYourCarbon:UpgradeWater()
 			buy = buy + (self.db.stocklist[id] or 0)
 			if self.db.stocklist[id] then oldid = id end
 			self.db.stocklist[id] = nil
-		elseif level >= select(5, GetItemInfo(id)) then
+		elseif level >= (select(5, GetItemInfo(id)) or 0) then
 			found = id
 		end
 	end
