@@ -4,8 +4,9 @@
 ## Notes: Automatically restock items from vendors and your bank
 ## Author: Tekkub Stoutwrithe
 ## Version: Alpha
-## X-Website: http://code.google.com/p/tekkub-wow/
+## X-Website: http://www.tekkub.net/
 ## X-Email: tekkub-wow@googlegroups.com
+## X-Category: Inventory
 
 ## SavedVariablesPerCharacter: StealYourCarbonDB
 
@@ -14,5 +15,7 @@
 ## X-LoadOn-Merchant: true
 ## X-LoadOn-Bank: true
 
+tekKonfig\tekKonfig.xml
+
 StealYourCarbon.lua
-SlashHandler.lua
+Config.lua
