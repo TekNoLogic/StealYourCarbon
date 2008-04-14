@@ -63,9 +63,9 @@ SlashCmdList.CARBON = function(input)
 	else
 		local id, qty = string.match(input, "add .*item:(%d+):.*%s+(%d+)%s*$")
 		if id and qty then
-			self.db.stocklist[tonumber(id)] = tonumber(qty)
-			self:PrintF("Added %s x%d", select(2, GetItemInfo(id)), qty)
-			self:UpdateConfigList()
+			StealYourCarbon.db.stocklist[tonumber(id)] = tonumber(qty)
+			StealYourCarbon:PrintF("Added %s x%d", select(2, GetItemInfo(id)), qty)
+			StealYourCarbon:UpdateConfigList()
 		else
 			StealYourCarbon:Print("Automatically restock items from vendors and your bank")
 			ChatFrame1:AddMessage(" /carbon /syc")
