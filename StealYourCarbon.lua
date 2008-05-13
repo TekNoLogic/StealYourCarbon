@@ -80,9 +80,9 @@ end
 --      Merchant Button      --
 -------------------------------
 
-local addbutton = LibStub("tekKonfig-Button").new_small(MerchantFrame, "TOPRIGHT", -40, -40)
-addbutton:SetWidth(120)
-addbutton:SetText("Steal Your Carbon")
+local addbutton = LibStub("tekKonfig-Button").new_small(MerchantFrame, "TOPLEFT", 175, -45)
+addbutton:SetWidth(50)
+addbutton:SetText("SYC")
 addbutton:SetScript("OnClick", function(self) InterfaceOptionsFrame_OpenToFrame(StealYourCarbon.configframe) end)
 
 
