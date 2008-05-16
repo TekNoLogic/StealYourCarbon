@@ -164,13 +164,14 @@ function StealYourCarbon:UpdateConfigList()
 	for _,row in ipairs(rows) do
 		if id then
 			row.id = id
-			local _, link, _, _, _, _, _, stack, _, texture = GetItemInfo(id)
+			local _, link, _, _, _, _, _, stack = GetItemInfo(id)
+			local texture = GetItemIcon(id)
 			row.icon:SetTexture(texture)
 			row.up:Enable()
 			if qty == 0 then row.down:Disable() else row.down:Enable() end
 			row.count:SetText(qty)
 			row.name:SetText(link)
-			row.stack:SetText("Stack Size: "..stack)
+			row.stack:SetText("Stack Size: "..(stack or "???"))
 			row.icon:Show()
 			row:Show()
 			id, qty = next(self.db.stocklist, id)
