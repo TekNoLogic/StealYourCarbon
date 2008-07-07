@@ -92,7 +92,7 @@ addbutton:SetScript("OnClick", function(self) InterfaceOptionsFrame_OpenToFrame(
 
 LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("StealYourCarbon", {
 	launcher = true,
-	icon = "Interface\\Icons\\Spell_Nature_StormReach",
+	icon = "Interface\\Icons\\INV_Misc_Gem_Diamond_01",
 	OnClick = function() InterfaceOptionsFrame_OpenToFrame(StealYourCarbon.configframe) end,
 })
 
