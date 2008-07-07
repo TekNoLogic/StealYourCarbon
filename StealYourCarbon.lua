@@ -86,6 +86,17 @@ addbutton:SetText("SYC")
 addbutton:SetScript("OnClick", function(self) InterfaceOptionsFrame_OpenToFrame(StealYourCarbon.configframe) end)
 
 
+----------------------------------------
+--      Quicklaunch registration      --
+----------------------------------------
+
+LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("StealYourCarbon", {
+	launcher = true,
+	icon = "Interface\\Icons\\Spell_Nature_StormReach",
+	OnClick = function() InterfaceOptionsFrame_OpenToFrame(StealYourCarbon.configframe) end,
+})
+
+
 ----------------------
 --      Events      --
 ----------------------
