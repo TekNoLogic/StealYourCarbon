@@ -1,0 +1,17 @@
+2.4.2.5-Beta
+    Account for cases where the items in the stock list are not cached (after a patch)
+
+2.4.2.4-Beta
+    Apply patch "Merchant button overlays SellOMatic buttons"
+
+2.4.1.3-Beta
+    Screw you, and your self
+
+2.4.0.2-Beta
+    Add GUI config frame
+    Add "About" panel, TOC metadata
+    query server for water tooltips so GetItemInfo doesn't nil out
+    Add button to merchant frame, trim down slash handler
+
+2.3.3.1-Beta
+    Initial release (DUH!)
