@@ -1,0 +1,11 @@
+StealYourCarbon is a simple reagent restocker addon.  When you visit a vendor who sells an item you have told SYC to buy, it buys it for you.  Never run out of water again!
+
+Future plans: restocking from bank.
+
+What the hell does the name mean?  Just an amusing little phrase I stole from "Modest Mouse - Parting of the Sensory":http://www.youtube.com/watch?v=jRFe1yPfWK8
+
+h2. Links
+
+<b>Visit "my site":http://www.tekkub.net/addons/StealYourCarbon for more info<br>
+Please report all bugs and feature requests to my "Google Code":http://code.google.com/p/tekkub-wow/issues/list?can=1&q=addon:StealYourCarbon&sort=status+milestone&colspec=ID%20Type%20Status%20Addon%20Milestone%20Summary tracker<br>
+Please direct all feedback and questions to my "Google Groups":http://groups-beta.google.com/group/tekkub-wow mailinglist</b>
