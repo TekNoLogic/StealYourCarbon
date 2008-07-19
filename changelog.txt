@@ -1,3 +1,6 @@
+2.4.2.6-Beta
+    Add LDB quicklaunch button
+
 2.4.2.5-Beta
     Account for cases where the items in the stock list are not cached (after a patch)
 
