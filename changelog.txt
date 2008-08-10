@@ -1,3 +1,6 @@
+2.4.3.8-Beta
+    Remove merchant button, we have LDB now
+
 2.4.3.7-Beta
     Tweak launcher declaration to match the updated spec
 
