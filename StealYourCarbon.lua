@@ -27,7 +27,7 @@ local StealYourCarbon = StealYourCarbon
 function StealYourCarbon:Print(...) ChatFrame1:AddMessage(string.join(" ", "|cFF33FF99Steal Your Carbon|r:", ...)) end
 function StealYourCarbon:PrintF(fmsg, ...) ChatFrame1:AddMessage(string.format("|cFF33FF99Steal Your Carbon|r: "..fmsg, ...)) end
 
-local waterupgrades = {33445,33444,27860,28399,8766,1645,1708,1205,1179,159}
+local waterupgrades = IS_WRATH_BUILD and {33445,33444,27860,28399,8766,1645,1708,1205,1179,159} or {27860,28399,8766,1645,1708,1205,1179,159}
 for _,id in pairs(waterupgrades) do GameTooltip:SetHyperlink("item:"..id) end -- Query server to ensure GetItemInfo doesn't nil out.
 function StealYourCarbon:UpgradeWater()
 	local level = UnitLevel("player")
