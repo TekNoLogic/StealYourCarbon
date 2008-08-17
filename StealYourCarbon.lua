@@ -45,8 +45,8 @@ function StealYourCarbon:UpgradeWater()
 	end
 
 	if found and buy > 0 then
-		if self.db.chatter then self:PrintF("Upgrading %s to %s", select(2, GetItemInfo(oldid)), select(2, GetItemInfo(found))) end
 		self.db.stocklist[found] = buy
+		if self.db.chatter then self:PrintF("Upgrading %s to %s", select(2, GetItemInfo(oldid)), select(2, GetItemInfo(found))) end
 	end
 end
 
