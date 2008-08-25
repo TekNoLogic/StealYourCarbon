@@ -38,8 +38,9 @@ function StealYourCarbon:UpgradeWater()
 			buy = buy + (self.db.stocklist[id] or 0)
 			if self.db.stocklist[id] then oldid = id end
 			self.db.stocklist[id] = nil
-		elseif level >= (select(5, GetItemInfo(id)) or 0) then
-			found = id
+		else
+			local _, _, _, _, reqlvl = GetItemInfo(id)
+			if level >= reqlvl then found = id end
 		end
 	end
 
