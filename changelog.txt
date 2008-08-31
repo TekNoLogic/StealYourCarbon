@@ -1,3 +1,8 @@
+3.0.1.11-Beta
+    Fix water upgrade being lost if item info is not cached
+    Fix water upgrading when items are not cached
+    Embed update
+
 3.0.1.10-Beta
     Load water list appropriate for the client version
     Embed update
