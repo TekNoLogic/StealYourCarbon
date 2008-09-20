@@ -4,7 +4,7 @@ local tekcheck = LibStub("tekKonfig-Checkbox")
 local rows, offset = {}, 0
 
 
-local frame = CreateFrame("Frame", "StealYourCarbonConfig", UIParent)
+local frame = CreateFrame("Frame", "StealYourCarbonConfig", InterfaceOptionsFramePanelContainer)
 frame.name = "Steal Your Carbon"
 frame:SetScript("OnShow", function(frame)
 	local StealYourCarbon = StealYourCarbon

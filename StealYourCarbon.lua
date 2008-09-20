@@ -1,3 +1,4 @@
+if not IS_WRATH_BUILD then InterfaceOptionsFrame_OpenToCategory = InterfaceOptionsFrame_OpenToFrame end
 
 --------------------------------
 --      Memoizing Tables      --
@@ -59,7 +60,7 @@ SLASH_CARBON1 = "/carbon"
 SLASH_CARBON2 = "/syc"
 SlashCmdList.CARBON = function(input)
 	if input == "" then
-		InterfaceOptionsFrame_OpenToFrame(StealYourCarbon.configframe)
+		InterfaceOptionsFrame_OpenToCategory(StealYourCarbon.configframe)
 	else
 		local id, qty = string.match(input, "add .*item:(%d+):.*%s+(%d+)%s*$")
 		if id and qty then
@@ -83,7 +84,7 @@ end
 LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("StealYourCarbon", {
 	type = "launcher",
 	icon = "Interface\\Icons\\INV_Misc_Gem_Diamond_01",
-	OnClick = function() InterfaceOptionsFrame_OpenToFrame(StealYourCarbon.configframe) end,
+	OnClick = function() InterfaceOptionsFrame_OpenToCategory(StealYourCarbon.configframe) end,
 })
 
 
