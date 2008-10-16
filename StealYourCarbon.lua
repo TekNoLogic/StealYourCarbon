@@ -41,7 +41,7 @@ function StealYourCarbon:UpgradeWater()
 			self.db.stocklist[id] = nil
 		else
 			local _, _, _, _, reqlvl = GetItemInfo(id)
-			if level >= reqlvl then found = id end
+			if reqlvl and level >= reqlvl then found = id end
 		end
 	end
 
