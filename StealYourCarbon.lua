@@ -97,7 +97,7 @@ StealYourCarbon:RegisterEvent("ADDON_LOADED")
 
 
 function StealYourCarbon:ADDON_LOADED(event, addon)
-	if addon ~= "StealYourCarbon" then return end
+	if addon:lower() ~= "stealyourcarbon" then return end
 
 	StealYourCarbonDB = StealYourCarbonDB or {stocklist = {}}
 	self.db = StealYourCarbonDB
