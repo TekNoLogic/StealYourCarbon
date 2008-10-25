@@ -109,16 +109,26 @@ function StealYourCarbon:ADDON_LOADED(event, addon)
 end
 
 
+local function GS(cash)
+	if not cash then return end
+	cash = cash/100
+	local s = floor(cash%100)
+	local g = floor(cash/100)
+	if g > 0 then return string.format("|cffffd700%d.|cffc7c7cf%02d", g, s)
+	else return string.format("|cffc7c7cf%d", s) end
+end
+
+
 function StealYourCarbon:MERCHANT_SHOW()
 	if self.db.upgradewater then self:UpgradeWater() end
-
+	local spent = 0
 	for i=1,GetMerchantNumItems() do
 		local link = GetMerchantItemLink(i)
 		local itemID = link and ids[link]
 		if itemID and self.db.stocklist[itemID] then
 			local needed = self.db.stocklist[itemID] - GetItemCount(itemID)
 			if needed > 0 then
-				local _, _, _, qty, avail = GetMerchantItemInfo(i)
+				local _, _, price, qty, avail = GetMerchantItemInfo(i)
 				local tobuy = avail > 0 and avail < needed and avail or needed
 				local diff = math.fmod(tobuy, qty)
 				tobuy = tobuy - diff + ((diff > 0) and self.db.overstock and qty or 0)
@@ -128,11 +138,13 @@ function StealYourCarbon:MERCHANT_SHOW()
 				while tobuy > 0 do
 					local thisbuy = min(tobuy, stacks[itemID])
 					BuyMerchantItem(i, thisbuy/qty)
+					spent = spent + price*thisbuy/qty
 					tobuy = tobuy - thisbuy
 				end
 			end
 		end
 	end
+	if spent > 0 and self.db.chatter then self:Print("Spent", GS(spent)) end
 end
 
 
