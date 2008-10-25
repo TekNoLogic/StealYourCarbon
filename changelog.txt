@@ -1,3 +1,7 @@
+3.0.2.14-Beta
+    Remove 2.4.3 compat
+    Lowercase addon folders... fucking curse
+
 3.0.2.13-Beta
     nilsafe, fucking uncached items
     Only query items we don't have data on
