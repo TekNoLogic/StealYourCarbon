@@ -31,9 +31,9 @@ frame:SetScript("OnShow", function(frame)
 	upgradewater:SetChecked(StealYourCarbon.db.upgradewater)
 
 
-	local listlabel = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-	listlabel:SetPoint("TOPLEFT", upgradewater, "BOTTOMLEFT", EDGEGAP, -GAP)
-	listlabel:SetText("Restock Items")
+	local group = LibStub("tekKonfig-Group").new(frame, "Restock Items", "TOP", upgradewater, "BOTTOM", 0, -EDGEGAP)
+	group:SetPoint("LEFT", EDGEGAP, 0)
+	group:SetPoint("BOTTOMRIGHT", -EDGEGAP, EDGEGAP)
 
 
 	local function OnReceiveDrag()
@@ -66,16 +66,16 @@ frame:SetScript("OnShow", function(frame)
 	end
 	local function HideTooltip() GameTooltip:Hide() end
 	for i=1,NUMROWS*2 do
-		local row = CreateFrame("Frame", nil, frame)
-		if i == 1 then row:SetPoint("TOP", listlabel, "BOTTOM", 0, -8)
+		local row = CreateFrame("Frame", nil, group)
+		if i == 1 then row:SetPoint("TOP", group, 0, -EDGEGAP)
 		elseif i%2 == 0 then row:SetPoint("TOP", rows[i-1], "TOP")
 		else row:SetPoint("TOP", rows[i-1], "BOTTOM", 0, -6) end
 		if i%2 == 1 then
-			row:SetPoint("LEFT", frame, EDGEGAP, 0)
-			row:SetPoint("RIGHT", frame, "CENTER", -EDGEGAP/2, 0)
+			row:SetPoint("LEFT", group, EDGEGAP, 0)
+			row:SetPoint("RIGHT", group, "CENTER", -GAP/2-16, 0)
 		else
-			row:SetPoint("LEFT", frame, "CENTER", EDGEGAP/2, 0)
-			row:SetPoint("RIGHT", frame, -EDGEGAP, 0)
+			row:SetPoint("LEFT", group, "CENTER", GAP/2-16, 0)
+			row:SetPoint("RIGHT", group, -EDGEGAP-16, 0)
 		end
 		row:SetHeight(ICONSIZE)
 
