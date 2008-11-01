@@ -103,9 +103,10 @@ function StealYourCarbon:ADDON_LOADED(event, addon)
 
 	self:UnregisterEvent("ADDON_LOADED")
 	self:RegisterEvent("MERCHANT_SHOW")
---~ 	self:RegisterEvent("BANKFRAME_OPENED")
+	self:RegisterEvent("BANKFRAME_OPENED")
 
 	if MerchantFrame:IsVisible() then self:MERCHANT_SHOW() end
+	if BankFrame:IsVisible() then self:BANKFRAME_OPENED() end
 end
 
 
@@ -148,8 +149,41 @@ function StealYourCarbon:MERCHANT_SHOW()
 end
 
 
--- TODO: BANKFRAME_OPENED
---~ function StealYourCarbon:BANKFRAME_OPENED()
---~ UseContainerItem(BANK_CONTAINER, this:GetID())
---~ PickupContainerItem(BANK_CONTAINER, this:GetID())
---~ end
+local BANKBAGS = {-1,5,6,7,8,9,10,11}
+local function SwapFromBank(id, partial)
+	for _,bag in ipairs(BANKBAGS) do
+		for slot=1,GetContainerNumSlots(bag) do
+			local link = GetContainerItemLink(bag, slot)
+			local itemID = link and ids[link]
+			if itemID == id then
+				if partial then
+					print("Picking up bank", bag, slot, link)
+					PickupContainerItem(bag, slot)
+					for bag2=0,4 do
+						for slot2=1,GetContainerNumSlots(bag2) do
+							local link2 = GetContainerItemLink(bag2, slot2)
+							local itemID2 = link2 and ids[link2]
+							if itemID2 == id then
+								print("Picking up bag", bag2, slot2, link2)
+								PickupContainerItem(bag2, slot2)
+								return
+							end
+						end
+					end
+				else
+					print("Using bank", bag, slot, link)
+					UseContainerItem(bag, slot)
+					return
+				end
+			end
+		end
+	end
+end
+
+
+function StealYourCarbon:BANKFRAME_OPENED()
+	for id,num in pairs(self.db.stocklist) do
+		local inbag = GetItemCount(id)
+		if inbag < num and GetItemCount(id, true) > inbag then SwapFromBank(id, inbag ~= 0) end
+	end
+end
