@@ -1,7 +1,7 @@
 
 local NUMROWS, NUMCOLS, ICONSIZE, ICONGAP, GAP, EDGEGAP = 6, 10, 32, 3, 8, 16
 local tekcheck = LibStub("tekKonfig-Checkbox")
-local rows, offset = {}, 0
+local rows, offset, scrollbar = {}, 0
 
 
 local frame = CreateFrame("Frame", "StealYourCarbonConfig", InterfaceOptionsFramePanelContainer)
@@ -139,31 +139,34 @@ frame:SetScript("OnShow", function(frame)
 		rows[i], row.icon, row.count, row.name, row.stack, row.down, row.up = row, icon, count, name, stack, down, up
 	end
 
+	scrollbar = LibStub("tekKonfig-Scroll").new(group, 6, 1)
+
+	local f = scrollbar:GetScript("OnValueChanged")
+	scrollbar:SetScript("OnValueChanged", function(self, value, ...)
+		offset = math.floor(value)*2
+		StealYourCarbon:UpdateConfigList()
+		return f(self, value, ...)
+	end)
+
 	frame:EnableMouseWheel()
-	frame:SetScript("OnMouseWheel", function(f, val)
-		offset = offset - val*2
-		local items = 0
-		for i in pairs(StealYourCarbon.db.stocklist) do items = items + 1 end
-		if offset > (items - NUMROWS*2 + 1) then offset = items - NUMROWS*2 + 1 end
-		if offset < 0 then offset = 0 end
-		StealYourCarbon:UpdateConfigList()
-	end)
-	frame:SetScript("OnShow", function()
-		local items = 0
-		for i in pairs(StealYourCarbon.db.stocklist) do items = items + 1 end
-		if offset > (items - NUMROWS*2 + 1) then offset = items - NUMROWS*2 + 1 end
-		if offset < 0 then offset = 0 end
-		StealYourCarbon:UpdateConfigList()
-	end)
+	frame:SetScript("OnMouseWheel", function(self, val) scrollbar:SetValue(scrollbar:GetValue() - val) end)
+	frame:SetScript("OnShow", function() StealYourCarbon:UpdateConfigList() end)
 	frame:SetScript("OnHide", function() for i,v in pairs(StealYourCarbon.db.stocklist) do if v == 0 then StealYourCarbon.db.stocklist[i] = nil end end end)
 	StealYourCarbon:UpdateConfigList()
+	scrollbar:SetValue(0)
 end)
 
 
 function StealYourCarbon:UpdateConfigList()
+	local items = 0
+	for i in pairs(StealYourCarbon.db.stocklist) do items = items + 1 end
+	local maxoffset = math.ceil((items - NUMROWS*2 + 1)/2)
+	scrollbar:SetMinMaxValues(0, math.max(maxoffset, 0))
+
 	local emptyshown = false
 	local id, qty = next(self.db.stocklist)
 	for i=1,offset do id, qty = next(self.db.stocklist, id) end
+
 
 	for _,row in ipairs(rows) do
 		if id then
