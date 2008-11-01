@@ -65,12 +65,16 @@ frame:SetScript("OnShow", function(frame)
 		GameTooltip:SetHyperlink(link)
 	end
 	local function HideTooltip() GameTooltip:Hide() end
-	for i=1,NUMROWS do
+	for i=1,NUMROWS*2 do
 		local row = CreateFrame("Frame", nil, frame)
 		if i == 1 then row:SetPoint("TOP", listlabel, "BOTTOM", 0, -8)
+		elseif i%2 == 0 then row:SetPoint("TOP", rows[i-1], "TOP")
 		else row:SetPoint("TOP", rows[i-1], "BOTTOM", 0, -6) end
-		if i <= NUMROWS then
+		if i%2 == 1 then
 			row:SetPoint("LEFT", frame, EDGEGAP, 0)
+			row:SetPoint("RIGHT", frame, "CENTER", -EDGEGAP/2, 0)
+		else
+			row:SetPoint("LEFT", frame, "CENTER", EDGEGAP/2, 0)
 			row:SetPoint("RIGHT", frame, -EDGEGAP, 0)
 		end
 		row:SetHeight(ICONSIZE)
@@ -137,17 +141,17 @@ frame:SetScript("OnShow", function(frame)
 
 	frame:EnableMouseWheel()
 	frame:SetScript("OnMouseWheel", function(f, val)
-		offset = offset - val
+		offset = offset - val*2
 		local items = 0
 		for i in pairs(StealYourCarbon.db.stocklist) do items = items + 1 end
-		if offset > (items - NUMROWS + 1) then offset = items - NUMROWS + 1 end
+		if offset > (items - NUMROWS*2 + 1) then offset = items - NUMROWS*2 + 1 end
 		if offset < 0 then offset = 0 end
 		StealYourCarbon:UpdateConfigList()
 	end)
 	frame:SetScript("OnShow", function()
 		local items = 0
 		for i in pairs(StealYourCarbon.db.stocklist) do items = items + 1 end
-		if offset > (items - NUMROWS + 1) then offset = items - NUMROWS + 1 end
+		if offset > (items - NUMROWS*2 + 1) then offset = items - NUMROWS*2 + 1 end
 		if offset < 0 then offset = 0 end
 		StealYourCarbon:UpdateConfigList()
 	end)
