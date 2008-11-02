@@ -1,3 +1,12 @@
+3.0.2.15-Beta
+    Add scroll bar to config group box
+    Add group box to config
+    Use two columns for restock list
+    Add bank restocking
+     - Doesn't try to do anything fancy like split stacks or pull from multiple stacks
+    Allow bags to be opened when config is shown
+    Add total spent output if chat output is on
+
 3.0.2.14-Beta
     Remove 2.4.3 compat
     Lowercase addon folders... fucking curse
