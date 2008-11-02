@@ -157,21 +157,18 @@ local function SwapFromBank(id, partial)
 			local itemID = link and ids[link]
 			if itemID == id then
 				if partial then
-					print("Picking up bank", bag, slot, link)
 					PickupContainerItem(bag, slot)
 					for bag2=0,4 do
 						for slot2=1,GetContainerNumSlots(bag2) do
 							local link2 = GetContainerItemLink(bag2, slot2)
 							local itemID2 = link2 and ids[link2]
 							if itemID2 == id then
-								print("Picking up bag", bag2, slot2, link2)
 								PickupContainerItem(bag2, slot2)
 								return
 							end
 						end
 					end
 				else
-					print("Using bank", bag, slot, link)
 					UseContainerItem(bag, slot)
 					return
 				end
