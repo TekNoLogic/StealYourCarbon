@@ -9,4 +9,5 @@
 	<Script file="tekKonfigDropdown.lua"/>
 	<Script file="tekKonfigAboutPanel.lua"/>
 	<Script file="tekKonfigGroup.lua"/>
+	<Script file="tekKonfigTopTab.lua"/>
 </Ui>

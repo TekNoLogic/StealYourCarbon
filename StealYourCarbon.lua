@@ -99,6 +99,7 @@ function StealYourCarbon:ADDON_LOADED(event, addon)
 	if addon:lower() ~= "stealyourcarbon" then return end
 
 	StealYourCarbonDB = StealYourCarbonDB or {stocklist = {}}
+	StealYourCarbonDB.tradestocklist = StealYourCarbonDB.tradestocklist or {}
 	self.db = StealYourCarbonDB
 
 	self:UnregisterEvent("ADDON_LOADED")
@@ -120,14 +121,28 @@ local function GS(cash)
 end
 
 
+local tradebags = {
+	[8] = true, -- Leatherworking
+	[16] = true, -- Inscription
+	[32] = true, -- Herb
+	[128] = true, -- Engineering
+}
+local function HasTradeskillBag()
+	for i=1,4 do
+		if tradebags[select(2, GetContainerNumFreeSlots(i))] then return true end
+	end
+end
+
+
 function StealYourCarbon:MERCHANT_SHOW()
-	if self.db.upgradewater then self:UpgradeWater() end
-	local spent = 0
+	local hastradebag = HasTradeskillBag()
+	if self.db.upgradewater and not hastradebag then self:UpgradeWater() end
+	local spent, stocklist = 0, hastradebag and self.db.tradestocklist or self.db.stocklist
 	for i=1,GetMerchantNumItems() do
 		local link = GetMerchantItemLink(i)
 		local itemID = link and ids[link]
-		if itemID and self.db.stocklist[itemID] then
-			local needed = self.db.stocklist[itemID] - GetItemCount(itemID)
+		if itemID and stocklist[itemID] then
+			local needed = stocklist[itemID] - GetItemCount(itemID)
 			if needed > 0 then
 				local _, _, price, qty, avail = GetMerchantItemInfo(i)
 				local tobuy = avail > 0 and avail < needed and avail or needed
@@ -179,6 +194,7 @@ end
 
 
 function StealYourCarbon:BANKFRAME_OPENED()
+	if HasTradeskillBag() then return end
 	for id,num in pairs(self.db.stocklist) do
 		local inbag = GetItemCount(id)
 		if inbag < num and GetItemCount(id, true) > inbag then SwapFromBank(id, inbag ~= 0) end
