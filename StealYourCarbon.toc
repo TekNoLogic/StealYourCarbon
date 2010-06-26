@@ -14,6 +14,7 @@
 ## X-LoadOn-Slash: /carbon, /syc
 ## X-LoadOn-Merchant: true
 ## X-LoadOn-Bank: true
+## X-LoadOn-InterfaceOptions: Steal Your Carbon
 
 tekKonfig\tekKonfig.xml
 CallbackHandler-1.0.lua
