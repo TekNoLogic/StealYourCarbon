@@ -194,8 +194,8 @@ end
 
 
 function StealYourCarbon:BANKFRAME_OPENED()
-	if HasTradeskillBag() then return end
-	for id,num in pairs(self.db.stocklist) do
+	local stocklist = HasTradeskillBag() and self.db.tradestocklist or self.db.stocklist
+	for id,num in pairs(stocklist) do
 		local inbag = GetItemCount(id)
 		if inbag < num and GetItemCount(id, true) > inbag then SwapFromBank(id, inbag ~= 0) end
 	end
