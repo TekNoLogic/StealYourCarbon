@@ -1,4 +1,3 @@
-
 --------------------------------
 --      Memoizing Tables      --
 --------------------------------
@@ -56,7 +55,7 @@ end
 -----------------------------
 
 SLASH_CARBON1 = "/carbon"
-SLASH_CARBON2 = "/syc"
+SLASH_SYC1 = "/syc"
 SlashCmdList.CARBON = function(input)
 	if input == "" then
 		InterfaceOptionsFrame_OpenToCategory(StealYourCarbon.configframe)
@@ -74,6 +73,7 @@ SlashCmdList.CARBON = function(input)
 		end
 	end
 end
+SlashCmdList.SYC = SlashCmdList.CARBON
 
 
 ----------------------------------------
