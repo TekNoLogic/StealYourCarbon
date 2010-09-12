@@ -1,5 +1,7 @@
 
-local NUMROWS, NUMCOLS, ICONSIZE, ICONGAP, GAP, EDGEGAP = 5, 10, 32, 3, 8, 16
+local myname, ns = ...
+
+local NUMROWS, NUMCOLS, ICONSIZE, ICONGAP, GAP, EDGEGAP = ns.IHASCAT and 6 or 5, 10, 32, 3, 8, 16
 local tekcheck = LibStub("tekKonfig-Checkbox")
 local rows, offset, scrollbar, tradeview, grouptext = {}, 0
 local normaltext, tradetext = "These items are only restocked if you are NOT carrying a tradeskill bag.  They will also restock from the bank.", "These items are only restocked if you are carrying a tradeskill bag.  Bank restocking will not take place."
@@ -15,27 +17,30 @@ frame:SetScript("OnShow", function(frame)
 	local title, subtitle = LibStub("tekKonfig-Heading").new(frame, "Steal Your Carbon", "To add an item drop it in the frame below or type '/carbon add [Item Link] 20'.  Shift-click to add/remove a full stack.  Set the quantity to 0 to remove the item.")
 
 
-	local overstock = tekcheck.new(frame, nil, "Overstock items", "TOPLEFT", subtitle, "BOTTOMLEFT", -2, -GAP)
-	overstock.tiptext = "Ensure that the quantity specified is always purchased (will buy extra items if vendor does not sell the exact quantity you need)."
-	local checksound = overstock:GetScript("OnClick")
-	overstock:SetScript("OnClick", function(self) checksound(self); StealYourCarbon.db.overstock = not StealYourCarbon.db.overstock end)
-	overstock:SetChecked(StealYourCarbon.db.overstock)
+	local upgradewater = tekcheck.new(frame, nil, "Upgrade water", "TOPLEFT", subtitle, "BOTTOMLEFT", -2, -GAP)
+	local checksound = upgradewater:GetScript("OnClick")
+	upgradewater.tiptext = "Automatically upgrade to better water as player levels."
+	upgradewater:SetScript("OnClick", function(self) checksound(self); StealYourCarbon.db.upgradewater = not StealYourCarbon.db.upgradewater end)
+	upgradewater:SetChecked(StealYourCarbon.db.upgradewater)
 
 
-	local chatter = tekcheck.new(frame, nil, "Chat feedback", "TOP", overstock, "TOP")
+	local chatter = tekcheck.new(frame, nil, "Chat feedback", "TOP", upgradewater, "TOP")
 	chatter:SetPoint("LEFT", frame, "TOP", GAP, 0)
 	chatter.tiptext = "Give chat feedback when purchasing items."
 	chatter:SetScript("OnClick", function(self) checksound(self); StealYourCarbon.db.chatter = not StealYourCarbon.db.chatter end)
 	chatter:SetChecked(StealYourCarbon.db.chatter)
 
 
-	local upgradewater = tekcheck.new(frame, nil, "Upgrade water", "TOPLEFT", overstock, "BOTTOMLEFT", 0, -GAP)
-	upgradewater.tiptext = "Automatically upgrade to better water as player levels."
-	upgradewater:SetScript("OnClick", function(self) checksound(self); StealYourCarbon.db.upgradewater = not StealYourCarbon.db.upgradewater end)
-	upgradewater:SetChecked(StealYourCarbon.db.upgradewater)
+	local overstock
+	if not ns.IHASCAT then
+		overstock = tekcheck.new(frame, nil, "Overstock items", "TOPLEFT", upgradewater, "BOTTOMLEFT", 0, -GAP)
+		overstock.tiptext = "Ensure that the quantity specified is always purchased (will buy extra items if vendor does not sell the exact quantity you need)."
+		overstock:SetScript("OnClick", function(self) checksound(self); StealYourCarbon.db.overstock = not StealYourCarbon.db.overstock end)
+		overstock:SetChecked(StealYourCarbon.db.overstock)
+	end
 
 
-	local group = LibStub("tekKonfig-Group").new(frame, nil, "TOP", upgradewater, "BOTTOM", 0, -EDGEGAP-GAP)
+	local group = LibStub("tekKonfig-Group").new(frame, nil, "TOP", overstock or upgradewater, "BOTTOM", 0, -EDGEGAP-GAP)
 	group:SetPoint("LEFT", EDGEGAP, 0)
 	group:SetPoint("BOTTOMRIGHT", -EDGEGAP, EDGEGAP)
 

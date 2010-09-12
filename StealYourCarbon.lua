@@ -1,3 +1,8 @@
+
+local myname, ns = ...
+ns.IHASCAT = select(4, GetBuildInfo()) >= 40000
+
+
 --------------------------------
 --      Memoizing Tables      --
 --------------------------------
@@ -146,15 +151,22 @@ function StealYourCarbon:MERCHANT_SHOW()
 			if needed > 0 then
 				local _, _, price, qty, avail = GetMerchantItemInfo(i)
 				local tobuy = avail > 0 and avail < needed and avail or needed
-				local diff = math.fmod(tobuy, qty)
-				tobuy = tobuy - diff + ((diff > 0) and self.db.overstock and qty or 0)
+				if not ns.IHASCAT then
+					local diff = math.fmod(tobuy, qty)
+					tobuy = tobuy - diff + ((diff > 0) and self.db.overstock and qty or 0)
+				end
 
 				if self.db.chatter then self:PrintF("Buying %s x%d", select(2, GetItemInfo(itemID)), tobuy) end
 
 				while tobuy > 0 do
 					local thisbuy = min(tobuy, stacks[itemID])
-					BuyMerchantItem(i, thisbuy/qty)
-					spent = spent + price*thisbuy/qty
+					if ns.IHASCAT then
+						BuyMerchantItem(i, thisbuy)
+						spent = spent + price*thisbuy
+					else
+						BuyMerchantItem(i, thisbuy/qty)
+						spent = spent + price*thisbuy/qty
+					end
 					tobuy = tobuy - thisbuy
 				end
 			end
