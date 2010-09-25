@@ -1,5 +1,13 @@
+4.0.0.17-Beta
+    Don't have to do the stack bullshit anymore in cat
+    Fix the slash command registration to ensure they work with AddonLoader (thanks oscarucb)
+    Make bank restocking work for trade bags too
+    X-LoadOn-InterfaceOptions
+    Embed update
+    Typos, ugh
+
 3.0.3.16-Beta
-    Add tradeskill bag restocking    
+    Add tradeskill bag restocking
     - Will pull in items from the tradeskill list only if you're carrying a leatherworking, engineering, herb or inscription bag
     - Will NOT pull items for the normal list when you have one of these bags equipped
     - Also will not pull from bank
