@@ -14,7 +14,7 @@ frame.name = "Steal Your Carbon"
 frame:SetScript("OnShow", function(frame)
 	local tektab = LibStub("tekKonfig-TopTab")
 	local StealYourCarbon = StealYourCarbon
-	local title, subtitle = LibStub("tekKonfig-Heading").new(frame, "Steal Your Carbon", "To add an item drop it in the frame below or type '/carbon add [Item Link] 20'.  Shift-click to add/remove a full stack.  Set the quantity to 0 to remove the item.")
+	local title, subtitle = LibStub("tekKonfig-Heading").new(frame, "Steal Your Carbon", "To add an item drop it in the frame below or type '/carbon add [Item Link] 20'.  Shift-click an arrow to add/remove a full stack.  Set the quantity to 0 to remove the item.")
 
 
 	local upgradewater = tekcheck.new(frame, nil, "Upgrade water", "TOPLEFT", subtitle, "BOTTOMLEFT", -2, -GAP)
