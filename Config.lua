@@ -31,16 +31,7 @@ frame:SetScript("OnShow", function(frame)
 	chatter:SetChecked(StealYourCarbon.db.chatter)
 
 
-	local overstock
-	if not ns.IHASCAT then
-		overstock = tekcheck.new(frame, nil, "Overstock items", "TOPLEFT", upgradewater, "BOTTOMLEFT", 0, -GAP)
-		overstock.tiptext = "Ensure that the quantity specified is always purchased (will buy extra items if vendor does not sell the exact quantity you need)."
-		overstock:SetScript("OnClick", function(self) checksound(self); StealYourCarbon.db.overstock = not StealYourCarbon.db.overstock end)
-		overstock:SetChecked(StealYourCarbon.db.overstock)
-	end
-
-
-	local group = LibStub("tekKonfig-Group").new(frame, nil, "TOP", overstock or upgradewater, "BOTTOM", 0, -EDGEGAP-GAP)
+	local group = LibStub("tekKonfig-Group").new(frame, nil, "TOP", upgradewater, "BOTTOM", 0, -EDGEGAP-GAP)
 	group:SetPoint("LEFT", EDGEGAP, 0)
 	group:SetPoint("BOTTOMRIGHT", -EDGEGAP, EDGEGAP)
 
