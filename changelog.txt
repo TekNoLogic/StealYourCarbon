@@ -1,3 +1,8 @@
+4.0.0.18-Beta
+    Fix chat feedback for new stack madness
+    Remove 3.0 backcompat
+    Config instructions weren't simple enough, it seems
+
 4.0.0.17-Beta
     Don't have to do the stack bullshit anymore in cat
     Fix the slash command registration to ensure they work with AddonLoader (thanks oscarucb)
