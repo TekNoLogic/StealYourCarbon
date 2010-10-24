@@ -156,7 +156,7 @@ function StealYourCarbon:MERCHANT_SHOW()
 				while tobuy > 0 do
 					local thisbuy = min(tobuy, stacks[itemID])
 					BuyMerchantItem(i, thisbuy)
-					spent = spent + price*thisbuy
+					spent = spent + (price/qty)*thisbuy
 					tobuy = tobuy - thisbuy
 				end
 			end
