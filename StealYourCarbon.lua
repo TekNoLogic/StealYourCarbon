@@ -111,7 +111,7 @@ function StealYourCarbon:ADDON_LOADED(event, addon)
 	self:RegisterEvent("BANKFRAME_OPENED")
 
 	if MerchantFrame:IsVisible() then self:MERCHANT_SHOW() end
-	if BankFrame:IsVisible() then self:BANKFRAME_OPENED() end
+	if GetContainerNumSlots(5) > 0 then self:BANKFRAME_OPENED() end -- We can't check visiblity because the play might have a bank addon
 end
 
 
