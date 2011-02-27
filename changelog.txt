@@ -1,3 +1,9 @@
+4.0.0.19-Beta
+    Use mod-click in config instead of just shift-click
+    Refactor all the bank restocking codes
+    Trigger on load-at-bank if the player has a bank addon
+    Helps to update the water upgrade list, eh?
+
 4.0.0.18-Beta
     Fix chat feedback for new stack madness
     Remove 3.0 backcompat
