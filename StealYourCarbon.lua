@@ -1,4 +1,3 @@
-
 local myname, ns = ...
 
 
@@ -129,6 +128,7 @@ local tradebags = {
 	[8] = true, -- Leatherworking
 	[16] = true, -- Inscription
 	[32] = true, -- Herb
+	[64] = true, -- Enchanting
 	[128] = true, -- Engineering
 }
 local function HasTradeskillBag()
