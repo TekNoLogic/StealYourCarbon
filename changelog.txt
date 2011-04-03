@@ -1,3 +1,6 @@
+4.0.0.20-Beta
+    Detect enchanting bags as tradeskill bags
+
 4.0.0.19-Beta
     Use mod-click in config instead of just shift-click
     Refactor all the bank restocking codes
