@@ -29,17 +29,33 @@ local StealYourCarbon = StealYourCarbon
 function StealYourCarbon:Print(...) ChatFrame1:AddMessage(string.join(" ", "|cFF33FF99Steal Your Carbon|r:", ...)) end
 function StealYourCarbon:PrintF(fmsg, ...) ChatFrame1:AddMessage(string.format("|cFF33FF99Steal Your Carbon|r: "..fmsg, ...)) end
 
+
+local tradebags = {
+	[8] = true, -- Leatherworking
+	[16] = true, -- Inscription
+	[32] = true, -- Herb
+	[64] = true, -- Enchanting
+	[128] = true, -- Engineering
+}
+local function HasTradeskillBag()
+	for i=1,4 do
+		if tradebags[select(2, GetContainerNumFreeSlots(i))] then return true end
+	end
+end
+
+
 local waterupgrades = {58257,58256,33445,33444,27860,28399,8766,1645,1708,1205,1179,159}
 for _,id in pairs(waterupgrades) do if not GetItemInfo(id) then GameTooltip:SetHyperlink("item:"..id) end end -- Query server to ensure GetItemInfo doesn't nil out.
 function StealYourCarbon:UpgradeWater()
 	local level = UnitLevel("player")
+	local stocklist = HasTradeskillBag() and self.db.tradestocklist or self.db.stocklist
 
 	local buy, found, oldid = 0
 	for _,id in pairs(waterupgrades) do
 		if found then
-			buy = buy + (self.db.stocklist[id] or 0)
-			if self.db.stocklist[id] then oldid = id end
-			self.db.stocklist[id] = nil
+			buy = buy + (stocklist[id] or 0)
+			if stocklist[id] then oldid = id end
+			stocklist[id] = nil
 		else
 			local _, _, _, _, reqlvl = GetItemInfo(id)
 			if reqlvl and level >= reqlvl then found = id end
@@ -47,7 +63,7 @@ function StealYourCarbon:UpgradeWater()
 	end
 
 	if found and buy > 0 then
-		self.db.stocklist[found] = buy
+		stocklist[found] = buy
 		if self.db.chatter then self:PrintF("Upgrading %s to %s", select(2, GetItemInfo(oldid)), select(2, GetItemInfo(found))) end
 	end
 end
@@ -124,23 +140,9 @@ local function GS(cash)
 end
 
 
-local tradebags = {
-	[8] = true, -- Leatherworking
-	[16] = true, -- Inscription
-	[32] = true, -- Herb
-	[64] = true, -- Enchanting
-	[128] = true, -- Engineering
-}
-local function HasTradeskillBag()
-	for i=1,4 do
-		if tradebags[select(2, GetContainerNumFreeSlots(i))] then return true end
-	end
-end
-
-
 function StealYourCarbon:MERCHANT_SHOW()
 	local hastradebag = HasTradeskillBag()
-	if self.db.upgradewater and not hastradebag then self:UpgradeWater() end
+	if self.db.upgradewater then self:UpgradeWater() end
 	local spent, stocklist = 0, hastradebag and self.db.tradestocklist or self.db.stocklist
 	for i=1,GetMerchantNumItems() do
 		local link = GetMerchantItemLink(i)
