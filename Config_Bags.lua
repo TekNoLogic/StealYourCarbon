@@ -140,16 +140,21 @@ function ns.UpdateBagList()
 		for id in pairs(ids) do table.insert(sortedlist, id) end
 		table.sort(sortedlist)
 
-		scrollbar:SetMinMaxValues(0, #sortedlist - NUMROWS)
+		scrollbar:SetMinMaxValues(0, math.max(#sortedlist - NUMROWS, 0))
 
 		dirty = false
 	end
 
 	for i,row in pairs(rows) do
 		local id = sortedlist[i + offset]
-		row.id = id
-		row.icon:SetTexture(icons[id])
-		row.name:SetText(links[id])
-		row.stack:SetText("Stack Size: "..(stacks[id] or "???"))
+		if id then
+			row.id = id
+			row.icon:SetTexture(icons[id])
+			row.name:SetText(links[id])
+			row.stack:SetText("Stack Size: "..(stacks[id] or "???"))
+			row:Show()
+		else
+			row:Hide()
+		end
 	end
 end
