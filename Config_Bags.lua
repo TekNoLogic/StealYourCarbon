@@ -45,6 +45,10 @@ function ns.GenerateBagsPanel(frame)
 	grouptext:SetText("These are all the stackable items currently in your bags.")
 
 
+	local function OnClick(self)
+		if not self.row.id then return end
+		PickupItem(self.row.id)
+	end
 	local function ShowTooltip(self)
 		if not self.row.id then return end
 		local _, link = GetItemInfo(self.row.id)
@@ -67,6 +71,9 @@ function ns.GenerateBagsPanel(frame)
 		iconbutton.row = row
 		iconbutton:SetScript("OnEnter", ShowTooltip)
 		iconbutton:SetScript("OnLeave", HideTooltip)
+		iconbutton:SetScript("OnClick", OnClick)
+		iconbutton:SetScript("OnDragStart", OnClick)
+		iconbutton:RegisterForDrag("LeftButton")
 
 		local buttonback = iconbutton:CreateTexture(nil, "ARTWORK")
 		buttonback:SetTexture("Interface\\Buttons\\UI-Quickslot2")
