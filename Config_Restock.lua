@@ -165,18 +165,16 @@ end
 local firsttime = true
 function ns.UpdateConfigList()
 	grouptext:SetText(tradeview and tradetext or normaltext)
-	local items = 0
+	local items = {}
 	local stocklist = tradeview and StealYourCarbon.db.tradestocklist or StealYourCarbon.db.stocklist
-	for i in pairs(stocklist) do items = items + 1 end
-	local maxoffset = items - NUMROWS
+	for id in pairs(stocklist) do table.insert(items, id) end
+	table.sort(items)
+	local maxoffset = #items - NUMROWS
 	scrollbar:SetMinMaxValues(0, math.max(maxoffset, 0))
 
 	local emptyshown = false
-	local id, qty = next(stocklist)
-	for i=1,offset do id, qty = next(stocklist, id) end
-
-
-	for _,row in ipairs(rows) do
+	for i,row in ipairs(rows) do
+		local id = items[i + offset]
 		if id then
 			row.id = id
 			local _, link, _, _, _, _, _, stack = GetItemInfo(id)
@@ -184,12 +182,11 @@ function ns.UpdateConfigList()
 			row.icon:SetTexture(texture)
 			row.up:Enable()
 			if qty == 0 then row.down:Disable() else row.down:Enable() end
-			row.count:SetText(qty)
+			row.count:SetText(stocklist[id])
 			row.name:SetText(link)
 			row.stack:SetText("Stack Size: "..(stack or "???"))
 			row.icon:Show()
 			row:Show()
-			id, qty = next(stocklist, id)
 		elseif not emptyshown then
 			emptyshown = true
 			row.id = nil
