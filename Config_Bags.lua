@@ -45,6 +45,13 @@ function ns.GenerateBagsPanel(frame)
 	grouptext:SetText("These are all the stackable items currently in your bags.")
 
 
+	local function ShowTooltip(self)
+		if not self.row.id then return end
+		local _, link = GetItemInfo(self.row.id)
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetHyperlink(link)
+	end
+	local function HideTooltip() GameTooltip:Hide() end
 	for i=1,NUMROWS do
 		local row = CreateFrame("Frame", nil, group)
 		if i == 1 then row:SetPoint("TOP", grouptext, "BOTTOM", 0, -GAP/2)
@@ -58,6 +65,8 @@ function ns.GenerateBagsPanel(frame)
 		iconbutton:SetWidth(ICONSIZE)
 		iconbutton:SetHeight(ICONSIZE)
 		iconbutton.row = row
+		iconbutton:SetScript("OnEnter", ShowTooltip)
+		iconbutton:SetScript("OnLeave", HideTooltip)
 
 		local buttonback = iconbutton:CreateTexture(nil, "ARTWORK")
 		buttonback:SetTexture("Interface\\Buttons\\UI-Quickslot2")
@@ -131,6 +140,7 @@ function ns.UpdateBagList()
 
 	for i,row in pairs(rows) do
 		local id = sortedlist[i + offset]
+		row.id = id
 		row.icon:SetTexture(icons[id])
 		row.name:SetText(links[id])
 		row.stack:SetText("Stack Size: "..(stacks[id] or "???"))
