@@ -22,4 +22,6 @@ CallbackHandler-1.0.lua
 LibDataBroker-1.1\LibDataBroker-1.1.lua
 
 StealYourCarbon.lua
+Config_Bags.lua
+Config_Restock.lua
 Config.lua

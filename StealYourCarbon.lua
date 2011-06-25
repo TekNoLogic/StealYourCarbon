@@ -83,7 +83,7 @@ SlashCmdList.CARBON = function(input)
 		if id and qty then
 			StealYourCarbon.db.stocklist[tonumber(id)] = tonumber(qty)
 			StealYourCarbon:PrintF("Added %s x%d", select(2, GetItemInfo(id)), qty)
-			StealYourCarbon:UpdateConfigList()
+			ns.UpdateConfigList()
 		else
 			StealYourCarbon:Print("Automatically restock items from vendors and your bank")
 			ChatFrame1:AddMessage(" /carbon /syc")
