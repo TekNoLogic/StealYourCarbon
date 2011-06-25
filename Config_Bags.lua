@@ -96,7 +96,7 @@ function ns.GenerateBagsPanel(frame)
 
 	group:EnableMouseWheel()
 	group:SetScript("OnShow", ns.UpdateBagList)
-	group:SetScript("OnMouseWheel", function(self, val) scrollbar:SetValue(scrollbar:GetValue() - val) end)
+	group:SetScript("OnMouseWheel", function(self, val) scrollbar:SetValue(scrollbar:GetValue() - val*3) end)
 	group:SetScript("OnEvent", function() dirty = true end)
 	group:RegisterEvent("BAG_UPDATE")
 

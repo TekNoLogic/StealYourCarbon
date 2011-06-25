@@ -144,7 +144,7 @@ function ns.GenerateRestockPanel(frame)
 	end)
 
 	group:EnableMouseWheel()
-	group:SetScript("OnMouseWheel", function(self, val) scrollbar:SetValue(scrollbar:GetValue() - val) end)
+	group:SetScript("OnMouseWheel", function(self, val) scrollbar:SetValue(scrollbar:GetValue() - val*3) end)
 	group:SetScript("OnShow", ns.UpdateConfigList)
 	group:SetScript("OnHide", function()
 		for i,v in pairs(StealYourCarbon.db.stocklist) do if v == 0 then StealYourCarbon.db.stocklist[i] = nil end end
