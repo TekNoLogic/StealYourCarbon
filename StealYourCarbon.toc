@@ -7,6 +7,7 @@
 ## X-Website: http://www.tekkub.net/
 ## X-Email: tekkub-wow@googlegroups.com
 ## X-Category: Inventory
+## X-Icon: Interface/Icons/INV_Qiraj_JewelGlyphed
 
 ## SavedVariablesPerCharacter: StealYourCarbonDB
 
