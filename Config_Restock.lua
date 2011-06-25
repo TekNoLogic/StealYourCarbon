@@ -9,6 +9,9 @@ local normaltext, tradetext = "These items are only restocked if you are NOT car
 function ns.GenerateRestockPanel(frame)
 	local group = LibStub("tekKonfig-Group").new(frame)
 
+	local clickbutt = CreateFrame("Button", nil, group)
+	clickbutt:SetAllPoints()
+
 	local tab1 = tektab.new(frame, "Normal", "BOTTOMLEFT", group, "TOPLEFT", 0, -4)
 	local tab2 = tektab.new(frame, "Tradeskill", "LEFT", tab1, "RIGHT", -15, 0)
 	tab2:Deactivate()
@@ -58,7 +61,7 @@ function ns.GenerateRestockPanel(frame)
 		else self.row.down:Enable() end
 		self.row.count:SetText(stocklist[self.row.id])
 	end
-	local function OnClick2() if CursorHasItem() then OnReceiveDrag() end end
+	local function OnClick2() if GetCursorInfo() == "item" or GetCursorInfo() == "merchant" then OnReceiveDrag() end end
 	local function ShowTooltip(self)
 		if not self.row.id then return end
 		local _, link = GetItemInfo(self.row.id)
@@ -143,8 +146,12 @@ function ns.GenerateRestockPanel(frame)
 		return f(self, value, ...)
 	end)
 
-	group:EnableMouseWheel()
-	group:SetScript("OnMouseWheel", function(self, val) scrollbar:SetValue(scrollbar:GetValue() - val*3) end)
+	clickbutt:EnableMouseWheel()
+	clickbutt:SetScript("OnMouseWheel", function(self, val) scrollbar:SetValue(scrollbar:GetValue() - val*3) end)
+	clickbutt:RegisterForDrag("LeftButton")
+	clickbutt:SetScript("OnClick", OnClick2)
+	clickbutt:SetScript("OnReceiveDrag", OnReceiveDrag)
+
 	group:SetScript("OnShow", ns.UpdateConfigList)
 	group:SetScript("OnHide", function()
 		for i,v in pairs(StealYourCarbon.db.stocklist) do if v == 0 then StealYourCarbon.db.stocklist[i] = nil end end
@@ -161,7 +168,7 @@ function ns.UpdateConfigList()
 	local items = 0
 	local stocklist = tradeview and StealYourCarbon.db.tradestocklist or StealYourCarbon.db.stocklist
 	for i in pairs(stocklist) do items = items + 1 end
-	local maxoffset = items - NUMROWS + 1
+	local maxoffset = items - NUMROWS
 	scrollbar:SetMinMaxValues(0, math.max(maxoffset, 0))
 
 	local emptyshown = false
