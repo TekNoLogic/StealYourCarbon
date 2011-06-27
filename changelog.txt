@@ -1,3 +1,9 @@
+4.2.0.21-Beta
+    You can now drop anywhere in the frame, not just in the icon box
+    Make water upgrade work with tradeskill bags too
+    Add bag item list to config now that we have room
+    Sort the stocklist the same way we sort the bag
+
 4.0.0.20-Beta
     Detect enchanting bags as tradeskill bags
 
