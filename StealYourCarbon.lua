@@ -44,7 +44,7 @@ local function HasTradeskillBag()
 end
 
 
-local waterupgrades = {58257,58256,33445,33444,27860,28399,8766,1645,1708,1205,1179,159}
+local waterupgrades = {81923,81924,58257,58256,33445,33444,27860,28399,8766,1645,1708,1205,1179,159}
 for _,id in pairs(waterupgrades) do if not GetItemInfo(id) then GameTooltip:SetHyperlink("item:"..id) end end -- Query server to ensure GetItemInfo doesn't nil out.
 function StealYourCarbon:UpgradeWater()
 	local level = UnitLevel("player")
