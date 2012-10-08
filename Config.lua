@@ -4,7 +4,7 @@ local myname, ns = ...
 local NUMROWS, NUMCOLS, ICONSIZE, ICONGAP, GAP, EDGEGAP = 9, 10, 32, 3, 8, 16
 local tekcheck = LibStub("tekKonfig-Checkbox")
 local rows, offset, scrollbar, tradeview, grouptext = {}, 0
-local _, myclass = UnitClss('player')
+local _, myclass = UnitClass('player')
 
 
 if AddonLoader and AddonLoader.RemoveInterfaceOptions then AddonLoader:RemoveInterfaceOptions("Steal Your Carbon") end
