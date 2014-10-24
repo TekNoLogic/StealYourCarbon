@@ -21,27 +21,12 @@ StealYourCarbon = CreateFrame("Frame")
 local StealYourCarbon = StealYourCarbon
 
 
-local tradebags = {
-	[8] = true, -- Leatherworking
-	[16] = true, -- Inscription
-	[32] = true, -- Herb
-	[64] = true, -- Enchanting
-	[128] = true, -- Engineering
-}
-function ns.HasTradeskillBag()
-	for i=1,4 do
-		if tradebags[select(2, GetContainerNumFreeSlots(i))] then return true end
-	end
-end
-
-
 ----------------------
 --      Events      --
 ----------------------
 
 function ns.OnLoad()
 	StealYourCarbonDB = StealYourCarbonDB or {stocklist = {}}
-	StealYourCarbonDB.tradestocklist = StealYourCarbonDB.tradestocklist or {}
 	StealYourCarbon.db = StealYourCarbonDB
 
 
@@ -60,9 +45,9 @@ end
 
 local _, _, _, _, _, TRADE_GOODS = GetAuctionItemClasses()
 ns.RegisterEvent("MERCHANT_SHOW", function()
-	local hastradebag = ns.HasTradeskillBag()
 	ns.UpgradeWater()
-	local spent, stocklist = 0, hastradebag and StealYourCarbon.db.tradestocklist or StealYourCarbon.db.stocklist
+
+	local spent, stocklist = 0, StealYourCarbon.db.stocklist
 	for i=1,GetMerchantNumItems() do
 		local link = GetMerchantItemLink(i)
 		local itemID = link and ns.ids[link]

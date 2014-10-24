@@ -17,7 +17,7 @@ end
 
 function ns.UpgradeWater()
 	local level = UnitLevel("player")
-	local stocklist = ns.HasTradeskillBag() and StealYourCarbon.db.tradestocklist or StealYourCarbon.db.stocklist
+	local stocklist = StealYourCarbon.db.stocklist
 
 	for _,set in pairs(upgrades) do
 		local buy, found, oldid = 0

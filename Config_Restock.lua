@@ -2,7 +2,7 @@
 local myname, ns = ...
 local tektab = LibStub("tekKonfig-TopTab")
 local NUMROWS, NUMCOLS, ICONSIZE, ICONGAP, GAP, EDGEGAP = 11, 10, 32, 3, 8, 16
-local rows, offset, scrollbar, tradeview = {}, 0
+local rows, offset, scrollbar = {}, 0
 
 
 function ns.GenerateRestockPanel(frame)
@@ -13,7 +13,7 @@ function ns.GenerateRestockPanel(frame)
 
 	local function OnReceiveDrag()
 		local infotype, itemid, itemlink = GetCursorInfo()
-		local stocklist = tradeview and StealYourCarbon.db.tradestocklist or StealYourCarbon.db.stocklist
+		local stocklist = StealYourCarbon.db.stocklist
 		if infotype == "item" then stocklist[itemid] = select(8, GetItemInfo(itemid))
 		elseif infotype == "merchant" then
 			local itemlink = GetMerchantItemLink(itemid)
@@ -26,7 +26,7 @@ function ns.GenerateRestockPanel(frame)
 	local function OnClick(self)
 		PlaySound("UChatScrollButton")
 		local diff = (self.up and 1 or -1) * (IsModifiedClick() and select(8, GetItemInfo(self.row.id)) or 1)
-		local stocklist = tradeview and StealYourCarbon.db.tradestocklist or StealYourCarbon.db.stocklist
+		local stocklist = StealYourCarbon.db.stocklist
 		stocklist[self.row.id] = stocklist[self.row.id] + (diff)
 		if stocklist[self.row.id] <= 0 then
 			stocklist[self.row.id] = 0
@@ -128,7 +128,6 @@ function ns.GenerateRestockPanel(frame)
 	group:SetScript("OnShow", ns.UpdateConfigList)
 	group:SetScript("OnHide", function()
 		for i,v in pairs(StealYourCarbon.db.stocklist) do if v == 0 then StealYourCarbon.db.stocklist[i] = nil end end
-		for i,v in pairs(StealYourCarbon.db.tradestocklist) do if v == 0 then StealYourCarbon.db.tradestocklist[i] = nil end end
 	end)
 
 	return group
@@ -138,7 +137,7 @@ end
 local firsttime = true
 function ns.UpdateConfigList()
 	local items = {}
-	local stocklist = tradeview and StealYourCarbon.db.tradestocklist or StealYourCarbon.db.stocklist
+	local stocklist = StealYourCarbon.db.stocklist
 	for id in pairs(stocklist) do table.insert(items, id) end
 	table.sort(items)
 	local maxoffset = #items - NUMROWS
