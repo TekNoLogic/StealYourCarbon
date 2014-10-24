@@ -25,7 +25,9 @@ tekKonfig\tekKonfig.xml
 
 StealYourCarbon.lua
 Bank.lua
+VendorBuyer.lua
 WaterUpgrader.lua
+
 Config_Bags.lua
 Config_Restock.lua
 Config.lua
