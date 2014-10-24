@@ -14,14 +14,6 @@ local stacks = setmetatable({}, {__index = function(t,i)
 end})
 
 
--------------------------------------------
---      Namespace and all that shit      --
--------------------------------------------
-
-StealYourCarbon = CreateFrame("Frame")
-local StealYourCarbon = StealYourCarbon
-
-
 ----------------------
 --      Events      --
 ----------------------
@@ -36,8 +28,8 @@ function ns.OnLoad()
 
 	-- If we were loaded by AddonLoader because our config panel was opened,
 	-- then force it to build itself
-	if StealYourCarbon.configframe:IsShown() then
-		StealYourCarbon.configframe:GetScript("OnShow")(StealYourCarbon.configframe)
+	if ns.configframe:IsShown() then
+		ns.configframe:GetScript("OnShow")(ns.configframe)
 	end
 end
 
