@@ -141,6 +141,7 @@ function StealYourCarbon:ADDON_LOADED(event, addon)
 end
 
 
+local _, _, _, _, _, TRADE_GOODS = GetAuctionItemClasses()
 function StealYourCarbon:MERCHANT_SHOW()
 	local hastradebag = HasTradeskillBag()
 	if self.db.upgradewater then self:UpgradeWater() end
@@ -149,7 +150,9 @@ function StealYourCarbon:MERCHANT_SHOW()
 		local link = GetMerchantItemLink(i)
 		local itemID = link and ids[link]
 		if itemID and stocklist[itemID] then
-			local needed = stocklist[itemID] - GetItemCount(itemID)
+			local _, _, _, _, _, item_type = GetItemInfo(itemID)
+			local crafting_reagent = item_type == TRADE_GOODS
+			local needed = stocklist[itemID] - GetItemCount(itemID, crafting_reagent)
 			if needed > 0 then
 				local _, _, price, qty, avail = GetMerchantItemInfo(i)
 				local tobuy = avail > 0 and avail < needed and avail or needed
