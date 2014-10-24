@@ -84,31 +84,24 @@ end
 --      Events      --
 ----------------------
 
-StealYourCarbon:SetScript("OnEvent", function(self, event, ...) self[event](self, event, ...) end)
-StealYourCarbon:RegisterEvent("ADDON_LOADED")
-
-
-function StealYourCarbon:ADDON_LOADED(event, addon)
-	if addon:lower() ~= "stealyourcarbon" then return end
-
+function ns.OnLoad()
 	StealYourCarbonDB = StealYourCarbonDB or {stocklist = {}}
 	StealYourCarbonDB.tradestocklist = StealYourCarbonDB.tradestocklist or {}
-	self.db = StealYourCarbonDB
+	StealYourCarbon.db = StealYourCarbonDB
 
-	self:UnregisterEvent("ADDON_LOADED")
-	self:RegisterEvent("MERCHANT_SHOW")
-	self:RegisterEvent("BANKFRAME_OPENED")
 
-	if MerchantFrame:IsVisible() then self:MERCHANT_SHOW() end
-	if GetContainerNumSlots(5) > 0 then self:BANKFRAME_OPENED() end -- We can't check visiblity because the play might have a bank addon
+	if MerchantFrame:IsVisible() then ns.MERCHANT_SHOW() end
+
+	-- We can't check visiblity because the play might have a bank addon
+	if GetContainerNumSlots(5) > 0 then ns.BANKFRAME_OPENED() end
 end
 
 
 local _, _, _, _, _, TRADE_GOODS = GetAuctionItemClasses()
-function StealYourCarbon:MERCHANT_SHOW()
+ns.RegisterEvent("MERCHANT_SHOW", function()
 	local hastradebag = HasTradeskillBag()
-	if self.db.upgradewater then self:UpgradeWater() end
-	local spent, stocklist = 0, hastradebag and self.db.tradestocklist or self.db.stocklist
+	if StealYourCarbon.db.upgradewater then StealYourCarbon:UpgradeWater() end
+	local spent, stocklist = 0, hastradebag and StealYourCarbon.db.tradestocklist or StealYourCarbon.db.stocklist
 	for i=1,GetMerchantNumItems() do
 		local link = GetMerchantItemLink(i)
 		local itemID = link and ids[link]
@@ -120,7 +113,7 @@ function StealYourCarbon:MERCHANT_SHOW()
 				local _, _, price, qty, avail = GetMerchantItemInfo(i)
 				local tobuy = avail > 0 and avail < needed and avail or needed
 
-				if self.db.chatter then
+				if StealYourCarbon.db.chatter then
 					ns.PrintF("Buying %s x%d", select(2, GetItemInfo(itemID)), tobuy)
 				end
 
@@ -133,8 +126,8 @@ function StealYourCarbon:MERCHANT_SHOW()
 			end
 		end
 	end
-	if spent > 0 and self.db.chatter then ns.Print("Spent", ns.GS(spent)) end
-end
+	if spent > 0 and StealYourCarbon.db.chatter then ns.Print("Spent", ns.GS(spent)) end
+end)
 
 
 local function MoveStack(bag, slot, qty)
@@ -235,10 +228,10 @@ local function SwapFromBank(id, needed)
 end
 
 
-function StealYourCarbon:BANKFRAME_OPENED()
-	local stocklist = HasTradeskillBag() and self.db.tradestocklist or self.db.stocklist
+ns.RegisterEvent("BANKFRAME_OPENED", function()
+	local stocklist = HasTradeskillBag() and StealYourCarbon.db.tradestocklist or StealYourCarbon.db.stocklist
 	for id,num in pairs(stocklist) do
 		local inbag = GetItemCount(id)
 		if inbag < num and GetItemCount(id, true) > inbag then SwapFromBank(id, num - inbag) end
 	end
-end
+end)

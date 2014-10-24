@@ -16,6 +16,7 @@
 ## X-LoadOn-Bank: true
 ## X-LoadOn-InterfaceOptions: Steal Your Carbon
 
+externals\events.lua
 externals\gsc.lua
 externals\print.lua
 
