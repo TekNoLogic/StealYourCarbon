@@ -1,42 +1,15 @@
 
 local myname, ns = ...
 local tektab = LibStub("tekKonfig-TopTab")
-local NUMROWS, NUMCOLS, ICONSIZE, ICONGAP, GAP, EDGEGAP = 10, 10, 32, 3, 8, 16
-local rows, offset, scrollbar, tradeview, grouptext = {}, 0
-local normaltext, tradetext = "These items are only restocked if you are NOT carrying a tradeskill bag.  They will also restock from the bank.", "These items are only restocked if you are carrying a tradeskill bag.  Bank restocking will not take place."
+local NUMROWS, NUMCOLS, ICONSIZE, ICONGAP, GAP, EDGEGAP = 11, 10, 32, 3, 8, 16
+local rows, offset, scrollbar, tradeview = {}, 0
 
 
 function ns.GenerateRestockPanel(frame)
-	local group = LibStub("tekKonfig-Group").new(frame)
+	local group = LibStub("tekKonfig-Group").new(frame, "Restocking list")
 
 	local clickbutt = CreateFrame("Button", nil, group)
 	clickbutt:SetAllPoints()
-
-	local tab1 = tektab.new(frame, "Normal", "BOTTOMLEFT", group, "TOPLEFT", 0, -4)
-	local tab2 = tektab.new(frame, "Tradeskill", "LEFT", tab1, "RIGHT", -15, 0)
-	tab2:Deactivate()
-	tab1:SetScript("OnClick", function(self)
-		self:Activate()
-		tab2:Deactivate()
-		tradeview = false
-		ns.UpdateConfigList()
-	end)
-	tab2:SetScript("OnClick", function(self)
-		self:Activate()
-		tab1:Deactivate()
-		tradeview = true
-		ns.UpdateConfigList()
-	end)
-
-	grouptext = group:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-	grouptext:SetHeight(48)
-	grouptext:SetPoint("TOPLEFT", group, "TOPLEFT", EDGEGAP, -EDGEGAP)
-	grouptext:SetPoint("RIGHT", group, -EDGEGAP-16, 0)
-	grouptext:SetNonSpaceWrap(true)
-	grouptext:SetJustifyH("LEFT")
-	grouptext:SetJustifyV("TOP")
-	grouptext:SetText(normaltext)
-
 
 	local function OnReceiveDrag()
 		local infotype, itemid, itemlink = GetCursorInfo()
@@ -71,7 +44,7 @@ function ns.GenerateRestockPanel(frame)
 	local function HideTooltip() GameTooltip:Hide() end
 	for i=1,NUMROWS do
 		local row = CreateFrame("Frame", nil, group)
-		if i == 1 then row:SetPoint("TOP", grouptext, "BOTTOM", 0, -GAP/2)
+		if i == 1 then row:SetPoint("TOP", group, "TOP", 0, -EDGEGAP)
 		else row:SetPoint("TOP", rows[i-1], "BOTTOM", 0, -6) end
 		row:SetPoint("LEFT", group, EDGEGAP, 0)
 		row:SetPoint("RIGHT", group, -EDGEGAP-16, 0)
@@ -164,7 +137,6 @@ end
 
 local firsttime = true
 function ns.UpdateConfigList()
-	grouptext:SetText(tradeview and tradetext or normaltext)
 	local items = {}
 	local stocklist = tradeview and StealYourCarbon.db.tradestocklist or StealYourCarbon.db.stocklist
 	for id in pairs(stocklist) do table.insert(items, id) end

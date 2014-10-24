@@ -1,6 +1,6 @@
 
 local myname, ns = ...
-local NUMROWS, NUMCOLS, ICONSIZE, ICONGAP, GAP, EDGEGAP = 10, 10, 32, 3, 8, 16
+local NUMROWS, NUMCOLS, ICONSIZE, ICONGAP, GAP, EDGEGAP = 11, 10, 32, 3, 8, 16
 local dirty, rows, offset, scrollbar = true, {}, 0
 
 
@@ -32,18 +32,7 @@ local icons = setmetatable({}, {
 
 
 function ns.GenerateBagsPanel(frame)
-	local group = LibStub("tekKonfig-Group").new(frame, "Inventory")
-
-
-	local grouptext = group:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-	grouptext:SetHeight(48)
-	grouptext:SetPoint("TOPLEFT", group, "TOPLEFT", EDGEGAP, -EDGEGAP)
-	grouptext:SetPoint("RIGHT", group, -EDGEGAP-16, 0)
-	grouptext:SetNonSpaceWrap(true)
-	grouptext:SetJustifyH("LEFT")
-	grouptext:SetJustifyV("TOP")
-	grouptext:SetText("These are all the stackable items currently in your bags.")
-
+	local group = LibStub("tekKonfig-Group").new(frame, "Stacked items in bags")
 
 	local function OnClick(self)
 		if not self.row.id then return end
@@ -58,7 +47,7 @@ function ns.GenerateBagsPanel(frame)
 	local function HideTooltip() GameTooltip:Hide() end
 	for i=1,NUMROWS do
 		local row = CreateFrame("Frame", nil, group)
-		if i == 1 then row:SetPoint("TOP", grouptext, "BOTTOM", 0, -GAP/2)
+		if i == 1 then row:SetPoint("TOP", group, "TOP", 0, -EDGEGAP)
 		else row:SetPoint("TOP", rows[i-1], "BOTTOM", 0, -6) end
 		row:SetPoint("LEFT", group, EDGEGAP, 0)
 		row:SetPoint("RIGHT", group, -EDGEGAP-16, 0)
