@@ -21,8 +21,6 @@ externals\gsc.lua
 externals\print.lua
 
 tekKonfig\tekKonfig.xml
-CallbackHandler-1.0.lua
-LibDataBroker-1.1\LibDataBroker-1.1.lua
 
 StealYourCarbon.lua
 Config_Bags.lua

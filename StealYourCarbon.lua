@@ -106,17 +106,6 @@ end
 SlashCmdList.SYC = SlashCmdList.CARBON
 
 
-----------------------------------------
---      Quicklaunch registration      --
-----------------------------------------
-
-LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("StealYourCarbon", {
-	type = "launcher",
-	icon = "Interface\\Icons\\INV_Misc_Gem_Diamond_01",
-	OnClick = function() InterfaceOptionsFrame_OpenToCategory(StealYourCarbon.configframe) end,
-})
-
-
 ----------------------
 --      Events      --
 ----------------------
