@@ -73,9 +73,7 @@ function StealYourCarbon:UpgradeWater()
 
 		if found and buy > 0 then
 			stocklist[found] = buy
-			if self.db.chatter then
-				ns.PrintF("Upgrading %s to %s", select(2, GetItemInfo(oldid)), select(2, GetItemInfo(found)))
-			end
+			ns.PrintF("Upgrading %s to %s", select(2, GetItemInfo(oldid)), select(2, GetItemInfo(found)))
 		end
 	end
 end
@@ -101,7 +99,7 @@ end
 local _, _, _, _, _, TRADE_GOODS = GetAuctionItemClasses()
 ns.RegisterEvent("MERCHANT_SHOW", function()
 	local hastradebag = ns.HasTradeskillBag()
-	if StealYourCarbon.db.upgradewater then StealYourCarbon:UpgradeWater() end
+	StealYourCarbon:UpgradeWater()
 	local spent, stocklist = 0, hastradebag and StealYourCarbon.db.tradestocklist or StealYourCarbon.db.stocklist
 	for i=1,GetMerchantNumItems() do
 		local link = GetMerchantItemLink(i)
@@ -114,9 +112,7 @@ ns.RegisterEvent("MERCHANT_SHOW", function()
 				local _, _, price, qty, avail = GetMerchantItemInfo(i)
 				local tobuy = avail > 0 and avail < needed and avail or needed
 
-				if StealYourCarbon.db.chatter then
-					ns.PrintF("Buying %s x%d", select(2, GetItemInfo(itemID)), tobuy)
-				end
+				ns.PrintF("Buying %s x%d", select(2, GetItemInfo(itemID)), tobuy)
 
 				while tobuy > 0 do
 					local thisbuy = min(tobuy, stacks[itemID])
@@ -127,5 +123,5 @@ ns.RegisterEvent("MERCHANT_SHOW", function()
 			end
 		end
 	end
-	if spent > 0 and StealYourCarbon.db.chatter then ns.Print("Spent", ns.GS(spent)) end
+	if spent > 0 then ns.Print("Spent", ns.GS(spent)) end
 end)
