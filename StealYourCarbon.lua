@@ -49,6 +49,12 @@ function ns.OnLoad()
 
 	-- We can't check visiblity because the play might have a bank addon
 	if GetContainerNumSlots(5) > 0 then ns.BANKFRAME_OPENED() end
+
+	-- If we were loaded by AddonLoader because our config panel was opened,
+	-- then force it to build itself
+	if StealYourCarbon.configframe:IsShown() then
+		StealYourCarbon.configframe:GetScript("OnShow")(StealYourCarbon.configframe)
+	end
 end
 
 
