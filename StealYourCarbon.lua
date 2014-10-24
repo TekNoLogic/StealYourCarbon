@@ -12,14 +12,6 @@ local stacks = setmetatable({}, {__index = function(t,i)
 	return stack
 end})
 
-local ids = setmetatable({}, {__index = function(t,i)
-	local _, link = GetItemInfo(i)
-	if not link then return end
-	local id = tonumber(string.match(link, "item:(%d+):"))
-	t[i] = id
-	return id
-end})
-
 
 -------------------------------------------
 --      Namespace and all that shit      --
@@ -67,7 +59,7 @@ ns.RegisterEvent("MERCHANT_SHOW", function()
 	local spent, stocklist = 0, hastradebag and StealYourCarbon.db.tradestocklist or StealYourCarbon.db.stocklist
 	for i=1,GetMerchantNumItems() do
 		local link = GetMerchantItemLink(i)
-		local itemID = link and ids[link]
+		local itemID = link and ns.ids[link]
 		if itemID and stocklist[itemID] then
 			local _, _, _, _, _, item_type = GetItemInfo(itemID)
 			local crafting_reagent = item_type == TRADE_GOODS

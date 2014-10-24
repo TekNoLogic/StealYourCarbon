@@ -18,6 +18,7 @@
 
 externals\events.lua
 externals\gsc.lua
+externals\itemid.lua
 externals\print.lua
 
 tekKonfig\tekKonfig.xml
