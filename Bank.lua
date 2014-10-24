@@ -101,7 +101,7 @@ end
 
 
 ns.RegisterEvent("BANKFRAME_OPENED", function()
-	for id,num in pairs(StealYourCarbon.db.stocklist) do
+	for id,num in pairs(ns.dbpc.stocklist) do
 		local inbag = GetItemCount(id)
 		if inbag < num and GetItemCount(id, true) > inbag then SwapFromBank(id, num - inbag) end
 	end

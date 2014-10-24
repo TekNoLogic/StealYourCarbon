@@ -17,15 +17,14 @@ end
 
 function ns.UpgradeWater()
 	local level = UnitLevel("player")
-	local stocklist = StealYourCarbon.db.stocklist
 
 	for _,set in pairs(upgrades) do
 		local buy, found, oldid = 0
 		for _,id in pairs(set) do
 			if found then
-				buy = buy + (stocklist[id] or 0)
-				if stocklist[id] then oldid = id end
-				stocklist[id] = nil
+				buy = buy + (ns.dbpc.stocklist[id] or 0)
+				if ns.dbpc.stocklist[id] then oldid = id end
+				ns.dbpc.stocklist[id] = nil
 			else
 				local _, _, _, _, reqlvl = GetItemInfo(id)
 				if reqlvl and level >= reqlvl then found = id end
@@ -33,8 +32,10 @@ function ns.UpgradeWater()
 		end
 
 		if found and buy > 0 then
-			stocklist[found] = buy
-			ns.Printf("Upgrading %s to %s", select(2, GetItemInfo(oldid)), select(2, GetItemInfo(found)))
+			ns.dbpc.stocklist[found] = buy
+			local _, oldname = GetItemInfo(oldid)
+			local _, newname = GetItemInfo(found)
+			ns.Print("Upgrading", oldname, "to", newname)
 		end
 	end
 end

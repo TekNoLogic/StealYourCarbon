@@ -1,5 +1,6 @@
 
 local myname, ns = ...
+ns.dbpcname = "StealYourCarbonDB"
 
 
 -------------------------------
@@ -26,9 +27,7 @@ local StealYourCarbon = StealYourCarbon
 ----------------------
 
 function ns.OnLoad()
-	StealYourCarbonDB = StealYourCarbonDB or {stocklist = {}}
-	StealYourCarbon.db = StealYourCarbonDB
-
+	ns.dbpc.stocklist = ns.dbpc.stocklist or {}
 
 	if MerchantFrame:IsVisible() then ns.MERCHANT_SHOW() end
 
@@ -47,14 +46,15 @@ local _, _, _, _, _, TRADE_GOODS = GetAuctionItemClasses()
 ns.RegisterEvent("MERCHANT_SHOW", function()
 	ns.UpgradeWater()
 
-	local spent, stocklist = 0, StealYourCarbon.db.stocklist
+	local spent = 0
 	for i=1,GetMerchantNumItems() do
 		local link = GetMerchantItemLink(i)
 		local itemID = link and ns.ids[link]
-		if itemID and stocklist[itemID] then
+		if itemID and ns.dbpc.stocklist[itemID] then
 			local _, _, _, _, _, item_type = GetItemInfo(itemID)
 			local crafting_reagent = item_type == TRADE_GOODS
-			local needed = stocklist[itemID] - GetItemCount(itemID, crafting_reagent)
+			local num_owned = GetItemCount(itemID, crafting_reagent)
+			local needed = ns.dbpc.stocklist[itemID] - num_owned
 			if needed > 0 then
 				local _, _, price, qty, avail = GetMerchantItemInfo(i)
 				local tobuy = avail > 0 and avail < needed and avail or needed

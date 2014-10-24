@@ -13,28 +13,38 @@ function ns.GenerateRestockPanel(frame)
 
 	local function OnReceiveDrag()
 		local infotype, itemid, itemlink = GetCursorInfo()
-		local stocklist = StealYourCarbon.db.stocklist
-		if infotype == "item" then stocklist[itemid] = select(8, GetItemInfo(itemid))
+		if infotype == "item" then
+			ns.dbpc.stocklist[itemid] = select(8, GetItemInfo(itemid))
 		elseif infotype == "merchant" then
 			local itemlink = GetMerchantItemLink(itemid)
 			itemid = tonumber(itemlink:match("item:(%d+):"))
-			stocklist[itemid] = select(8, GetItemInfo(itemid))
+			ns.dbpc.stocklist[itemid] = select(8, GetItemInfo(itemid))
 		end
+
 		ns.UpdateConfigList()
+
 		return ClearCursor()
 	end
+
 	local function OnClick(self)
 		PlaySound("UChatScrollButton")
+
 		local diff = (self.up and 1 or -1) * (IsModifiedClick() and select(8, GetItemInfo(self.row.id)) or 1)
-		local stocklist = StealYourCarbon.db.stocklist
-		stocklist[self.row.id] = stocklist[self.row.id] + (diff)
-		if stocklist[self.row.id] <= 0 then
-			stocklist[self.row.id] = 0
+		ns.dbpc.stocklist[self.row.id] = ns.dbpc.stocklist[self.row.id] + (diff)
+
+		if ns.dbpc.stocklist[self.row.id] <= 0 then
+			ns.dbpc.stocklist[self.row.id] = 0
 			self.row.down:Disable()
 		else self.row.down:Enable() end
-		self.row.count:SetText(stocklist[self.row.id])
+
+		self.row.count:SetText(ns.dbpc.stocklist[self.row.id])
 	end
-	local function OnClick2() if GetCursorInfo() == "item" or GetCursorInfo() == "merchant" then OnReceiveDrag() end end
+
+	local function OnClick2()
+		if GetCursorInfo() == "item" or GetCursorInfo() == "merchant" then
+			OnReceiveDrag()
+		end
+	end
 	local function ShowTooltip(self)
 		if not self.row.id then return end
 		local _, link = GetItemInfo(self.row.id)
@@ -127,7 +137,9 @@ function ns.GenerateRestockPanel(frame)
 
 	group:SetScript("OnShow", ns.UpdateConfigList)
 	group:SetScript("OnHide", function()
-		for i,v in pairs(StealYourCarbon.db.stocklist) do if v == 0 then StealYourCarbon.db.stocklist[i] = nil end end
+		for i,v in pairs(ns.dbpc.stocklist) do
+			if v == 0 then ns.dbpc.stocklist[i] = nil end
+		end
 	end)
 
 	return group
@@ -137,8 +149,7 @@ end
 local firsttime = true
 function ns.UpdateConfigList()
 	local items = {}
-	local stocklist = StealYourCarbon.db.stocklist
-	for id in pairs(stocklist) do table.insert(items, id) end
+	for id in pairs(ns.dbpc.stocklist) do table.insert(items, id) end
 	table.sort(items)
 	local maxoffset = #items - NUMROWS
 	scrollbar:SetMinMaxValues(0, math.max(maxoffset, 0))
@@ -153,7 +164,7 @@ function ns.UpdateConfigList()
 			row.icon:SetTexture(texture)
 			row.up:Enable()
 			if qty == 0 then row.down:Disable() else row.down:Enable() end
-			row.count:SetText(stocklist[id])
+			row.count:SetText(ns.dbpc.stocklist[id])
 			row.name:SetText(link)
 			row.stack:SetText("Stack Size: "..(stack or "???"))
 			row.icon:Show()
