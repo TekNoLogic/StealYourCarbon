@@ -36,9 +36,6 @@ StealYourCarbon.configframe = frame
 InterfaceOptions_AddCategory(frame)
 
 
-LibStub("tekKonfig-AboutPanel").new("Steal Your Carbon", "StealYourCarbon")
-
-
 local orig = IsOptionFrameOpen
 function IsOptionFrameOpen(...)
 	if not frame:IsVisible() then return orig(...) end
