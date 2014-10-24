@@ -26,8 +26,6 @@ end})
 
 StealYourCarbon = CreateFrame("Frame")
 local StealYourCarbon = StealYourCarbon
-function StealYourCarbon:Print(...) ChatFrame1:AddMessage(string.join(" ", "|cFF33FF99Steal Your Carbon|r:", ...)) end
-function StealYourCarbon:PrintF(fmsg, ...) ChatFrame1:AddMessage(string.format("|cFF33FF99Steal Your Carbon|r: "..fmsg, ...)) end
 
 
 local tradebags = {
@@ -74,7 +72,9 @@ function StealYourCarbon:UpgradeWater()
 
 		if found and buy > 0 then
 			stocklist[found] = buy
-			if self.db.chatter then self:PrintF("Upgrading %s to %s", select(2, GetItemInfo(oldid)), select(2, GetItemInfo(found))) end
+			if self.db.chatter then
+				ns.PrintF("Upgrading %s to %s", select(2, GetItemInfo(oldid)), select(2, GetItemInfo(found)))
+			end
 		end
 	end
 end
@@ -93,10 +93,10 @@ SlashCmdList.CARBON = function(input)
 		local id, qty = string.match(input, "add .*item:(%d+):.*%s+(%d+)%s*$")
 		if id and qty then
 			StealYourCarbon.db.stocklist[tonumber(id)] = tonumber(qty)
-			StealYourCarbon:PrintF("Added %s x%d", select(2, GetItemInfo(id)), qty)
+			ns.PrintF("Added %s x%d", select(2, GetItemInfo(id)), qty)
 			ns.UpdateConfigList()
 		else
-			StealYourCarbon:Print("Automatically restock items from vendors and your bank")
+			ns.Print("Automatically restock items from vendors and your bank")
 			ChatFrame1:AddMessage(" /carbon /syc")
 			ChatFrame1:AddMessage("   |cffff9933(no command)|r: Open config panel")
 			ChatFrame1:AddMessage("   |cffff9933add [Item Link] quantity|r: Add an item to be restocked")
@@ -154,7 +154,9 @@ function StealYourCarbon:MERCHANT_SHOW()
 				local _, _, price, qty, avail = GetMerchantItemInfo(i)
 				local tobuy = avail > 0 and avail < needed and avail or needed
 
-				if self.db.chatter then self:PrintF("Buying %s x%d", select(2, GetItemInfo(itemID)), tobuy) end
+				if self.db.chatter then
+					ns.PrintF("Buying %s x%d", select(2, GetItemInfo(itemID)), tobuy)
+				end
 
 				while tobuy > 0 do
 					local thisbuy = min(tobuy, stacks[itemID])
@@ -165,7 +167,7 @@ function StealYourCarbon:MERCHANT_SHOW()
 			end
 		end
 	end
-	if spent > 0 and self.db.chatter then self:Print("Spent", ns.GS(spent)) end
+	if spent > 0 and self.db.chatter then ns.Print("Spent", ns.GS(spent)) end
 end
 
 
