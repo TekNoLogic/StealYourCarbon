@@ -1,6 +1,6 @@
 
 local myname, ns = ...
-local NUMROWS, NUMCOLS, ICONSIZE, ICONGAP, GAP, EDGEGAP = 9, 10, 32, 3, 8, 16
+local NUMROWS, NUMCOLS, ICONSIZE, ICONGAP, GAP, EDGEGAP = 10, 10, 32, 3, 8, 16
 local dirty, rows, offset, scrollbar = true, {}, 0
 
 if select(4, GetBuildInfo()) < 40200 then NUMROWS = 5 end

@@ -1,7 +1,7 @@
 
 local myname, ns = ...
 local tektab = LibStub("tekKonfig-TopTab")
-local NUMROWS, NUMCOLS, ICONSIZE, ICONGAP, GAP, EDGEGAP = 9, 10, 32, 3, 8, 16
+local NUMROWS, NUMCOLS, ICONSIZE, ICONGAP, GAP, EDGEGAP = 10, 10, 32, 3, 8, 16
 local rows, offset, scrollbar, tradeview, grouptext = {}, 0
 local normaltext, tradetext = "These items are only restocked if you are NOT carrying a tradeskill bag.  They will also restock from the bank.", "These items are only restocked if you are carrying a tradeskill bag.  Bank restocking will not take place."
 
@@ -209,5 +209,3 @@ function ns.UpdateConfigList()
 		firsttime = false
 	end
 end
-
-
