@@ -2,9 +2,9 @@
 local myname, ns = ...
 
 
---------------------------------
---      Memoizing Tables      --
---------------------------------
+-------------------------------
+--      Memoizing Table      --
+-------------------------------
 
 local stacks = setmetatable({}, {__index = function(t,i)
 	local _, _, _, _, _, _, _, stack = GetItemInfo(i)
