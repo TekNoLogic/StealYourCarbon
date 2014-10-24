@@ -13,7 +13,7 @@ local frame = CreateFrame("Frame", "StealYourCarbonConfig", InterfaceOptionsFram
 frame.name = "Steal Your Carbon"
 frame:SetScript("OnShow", function(frame)
 	local StealYourCarbon = StealYourCarbon
-	local title, subtitle = LibStub("tekKonfig-Heading").new(frame, "Steal Your Carbon", "To add an item drop it in the frame below or type '/carbon add [Item Link] 20'.  Shift-click an arrow to add/remove a full stack.  Set the quantity to 0 to remove the item.")
+	local title, subtitle = LibStub("tekKonfig-Heading").new(frame, "Steal Your Carbon", "To add an item drop it in the frame below.  Shift-click an arrow to add/remove a full stack.  Set the quantity to 0 to remove the item.")
 
 
 	local liquid = myclass == 'MONK' and "brew" or "water"

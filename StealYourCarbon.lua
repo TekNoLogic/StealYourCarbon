@@ -80,32 +80,6 @@ function StealYourCarbon:UpgradeWater()
 end
 
 
------------------------------
---      Slash Command      --
------------------------------
-
-SLASH_CARBON1 = "/carbon"
-SLASH_SYC1 = "/syc"
-SlashCmdList.CARBON = function(input)
-	if input == "" then
-		InterfaceOptionsFrame_OpenToCategory(StealYourCarbon.configframe)
-	else
-		local id, qty = string.match(input, "add .*item:(%d+):.*%s+(%d+)%s*$")
-		if id and qty then
-			StealYourCarbon.db.stocklist[tonumber(id)] = tonumber(qty)
-			ns.PrintF("Added %s x%d", select(2, GetItemInfo(id)), qty)
-			ns.UpdateConfigList()
-		else
-			ns.Print("Automatically restock items from vendors and your bank")
-			ChatFrame1:AddMessage(" /carbon /syc")
-			ChatFrame1:AddMessage("   |cffff9933(no command)|r: Open config panel")
-			ChatFrame1:AddMessage("   |cffff9933add [Item Link] quantity|r: Add an item to be restocked")
-		end
-	end
-end
-SlashCmdList.SYC = SlashCmdList.CARBON
-
-
 ----------------------
 --      Events      --
 ----------------------

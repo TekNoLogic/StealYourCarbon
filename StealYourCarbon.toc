@@ -12,7 +12,6 @@
 ## SavedVariablesPerCharacter: StealYourCarbonDB
 
 ## LoadManagers: AddonLoader
-## X-LoadOn-Slash: /carbon, /syc
 ## X-LoadOn-Merchant: true
 ## X-LoadOn-Bank: true
 ## X-LoadOn-InterfaceOptions: Steal Your Carbon
