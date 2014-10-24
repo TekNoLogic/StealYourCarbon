@@ -23,6 +23,7 @@ externals\print.lua
 tekKonfig\tekKonfig.xml
 
 StealYourCarbon.lua
+Bank.lua
 Config_Bags.lua
 Config_Restock.lua
 Config.lua
