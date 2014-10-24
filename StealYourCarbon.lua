@@ -76,7 +76,7 @@ ns.RegisterEvent("MERCHANT_SHOW", function()
 				local _, _, price, qty, avail = GetMerchantItemInfo(i)
 				local tobuy = avail > 0 and avail < needed and avail or needed
 
-				ns.PrintF("Buying %s x%d", select(2, GetItemInfo(itemID)), tobuy)
+				ns.Printf("Buying %s x%d", select(2, GetItemInfo(itemID)), tobuy)
 
 				while tobuy > 0 do
 					local thisbuy = min(tobuy, stacks[itemID])

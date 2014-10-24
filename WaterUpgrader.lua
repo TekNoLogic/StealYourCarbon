@@ -34,7 +34,7 @@ function ns.UpgradeWater()
 
 		if found and buy > 0 then
 			stocklist[found] = buy
-			ns.PrintF("Upgrading %s to %s", select(2, GetItemInfo(oldid)), select(2, GetItemInfo(found)))
+			ns.Printf("Upgrading %s to %s", select(2, GetItemInfo(oldid)), select(2, GetItemInfo(found)))
 		end
 	end
 end
