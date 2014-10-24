@@ -141,16 +141,6 @@ function StealYourCarbon:ADDON_LOADED(event, addon)
 end
 
 
-local function GS(cash)
-	if not cash then return end
-	cash = cash/100
-	local s = floor(cash%100)
-	local g = floor(cash/100)
-	if g > 0 then return string.format("|cffffd700%d.|cffc7c7cf%02d", g, s)
-	else return string.format("|cffc7c7cf%d", s) end
-end
-
-
 function StealYourCarbon:MERCHANT_SHOW()
 	local hastradebag = HasTradeskillBag()
 	if self.db.upgradewater then self:UpgradeWater() end
@@ -175,7 +165,7 @@ function StealYourCarbon:MERCHANT_SHOW()
 			end
 		end
 	end
-	if spent > 0 and self.db.chatter then self:Print("Spent", GS(spent)) end
+	if spent > 0 and self.db.chatter then self:Print("Spent", ns.GS(spent)) end
 end
 
 

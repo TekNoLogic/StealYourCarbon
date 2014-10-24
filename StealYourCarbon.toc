@@ -17,6 +17,8 @@
 ## X-LoadOn-Bank: true
 ## X-LoadOn-InterfaceOptions: Steal Your Carbon
 
+externals\gsc.lua
+
 tekKonfig\tekKonfig.xml
 CallbackHandler-1.0.lua
 LibDataBroker-1.1\LibDataBroker-1.1.lua
