@@ -1,3 +1,11 @@
+6.0.0.25-Beta
+    New water in wod
+    Factor in bank items for trade goods
+    Simplify down config panels
+    No more tradeskill bag stock list
+    Remove chatter and upgrade config, now always on
+    Kill the slash command too
+
 5.1.0.24-Beta
     Missed a water
 
