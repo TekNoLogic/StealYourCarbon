@@ -9,7 +9,7 @@ local stacks = setmetatable({}, {__index = function(t,i)
 end})
 
 
-local _, _, _, _, _, TRADE_GOODS = GetAuctionItemClasses()
+local TRADE_GOODS = GetItemClassInfo(LE_ITEM_CLASS_TRADEGOODS)
 ns.RegisterEvent("MERCHANT_SHOW", function()
 	ns.UpgradeWater()
 
