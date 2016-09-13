@@ -1,4 +1,4 @@
-## Interface: 60000
+## Interface: 70000
 
 ## Title: Steal Your Carbon
 ## Notes: Automatically restock items from vendors and your bank
