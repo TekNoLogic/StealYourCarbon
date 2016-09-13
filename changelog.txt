@@ -1,112 +1,142 @@
-6.0.0.25-Beta
-    New water in wod
-    Factor in bank items for trade goods
-    Simplify down config panels
-    No more tradeskill bag stock list
-    Remove chatter and upgrade config, now always on
-    Kill the slash command too
+### 7.0.0.26-Beta
 
-5.1.0.24-Beta
-    Missed a water
+* Legion fix
 
-5.0.1.23-Release
-    Tagging release version
 
-5.0.1.22-Beta
-    PANDAS! water
-    Upgrade monk brews too
+### 6.0.0.25-Beta
 
-4.2.0.21-Beta
-    You can now drop anywhere in the frame, not just in the icon box
-    Make water upgrade work with tradeskill bags too
-    Add bag item list to config now that we have room
-    Sort the stocklist the same way we sort the bag
+* New water in wod
+* Factor in bank items for trade goods
+* Simplify down config panels
+* No more tradeskill bag stock list
+* Remove chatter and upgrade config, now always on
+* Kill the slash command too
 
-4.0.0.20-Beta
-    Detect enchanting bags as tradeskill bags
+### 5.1.0.24-Beta
 
-4.0.0.19-Beta
-    Use mod-click in config instead of just shift-click
-    Refactor all the bank restocking codes
-    Trigger on load-at-bank if the player has a bank addon
-    Helps to update the water upgrade list, eh?
+* Missed a water
 
-4.0.0.18-Beta
-    Fix chat feedback for new stack madness
-    Remove 3.0 backcompat
-    Config instructions weren't simple enough, it seems
+### 5.0.1.23-Release
 
-4.0.0.17-Beta
-    Don't have to do the stack bullshit anymore in cat
-    Fix the slash command registration to ensure they work with AddonLoader (thanks oscarucb)
-    Make bank restocking work for trade bags too
-    X-LoadOn-InterfaceOptions
-    Embed update
-    Typos, ugh
+* Tagging release version
 
-3.0.3.16-Beta
-    Add tradeskill bag restocking
-    - Will pull in items from the tradeskill list only if you're carrying a leatherworking, engineering, herb or inscription bag
-    - Will NOT pull items for the normal list when you have one of these bags equipped
-    - Also will not pull from bank
+### 5.0.1.22-Beta
 
-3.0.2.15-Beta
-    Add scroll bar to config group box
-    Add group box to config
-    Use two columns for restock list
-    Add bank restocking
-     - Doesn't try to do anything fancy like split stacks or pull from multiple stacks
-    Allow bags to be opened when config is shown
-    Add total spent output if chat output is on
+* PANDAS! water
+* Upgrade monk brews too
 
-3.0.2.14-Beta
-    Remove 2.4.3 compat
-    Lowercase addon folders... fucking curse
+### 4.2.0.21-Beta
 
-3.0.2.13-Beta
-    nilsafe, fucking uncached items
-    Only query items we don't have data on
+* You can now drop anywhere in the frame, not just in the icon box
+* Make water upgrade work with tradeskill bags too
+* Add bag item list to config now that we have room
+* Sort the stocklist the same way we sort the bag
 
-3.0.1.12-Beta
-    Update for wrath build 8962 config panel breakage
-    Embed update
+### 4.0.0.20-Beta
 
-3.0.1.11-Beta
-    Fix water upgrade being lost if item info is not cached
-    Fix water upgrading when items are not cached
-    Embed update
+* Detect enchanting bags as tradeskill bags
 
-3.0.1.10-Beta
-    Load water list appropriate for the client version
-    Embed update
+### 4.0.0.19-Beta
 
-3.0.1.9-Beta
-    New wrath water
-    Embed update
+* Use mod-click in config instead of just shift-click
+* Refactor all the bank restocking codes
+* Trigger on load-at-bank if the player has a bank addon
+* Helps to update the water upgrade list, eh?
 
-2.4.3.8-Beta
-    Remove merchant button, we have LDB now
+### 4.0.0.18-Beta
 
-2.4.3.7-Beta
-    Tweak launcher declaration to match the updated spec
+* Fix chat feedback for new stack madness
+* Remove 3.0 backcompat
+* Config instructions weren't simple enough, it seems
 
-2.4.2.6-Beta
-    Add LDB quicklaunch button
+### 4.0.0.17-Beta
 
-2.4.2.5-Beta
-    Account for cases where the items in the stock list are not cached (after a patch)
+* Don't have to do the stack bullshit anymore in cat
+* Fix the slash command registration to ensure they work with AddonLoader (thanks oscarucb)
+* Make bank restocking work for trade bags too
+* X-LoadOn-InterfaceOptions
+* Embed update
+* Typos, ugh
 
-2.4.2.4-Beta
-    Apply patch "Merchant button overlays SellOMatic buttons"
+### 3.0.3.16-Beta
 
-2.4.1.3-Beta
-    Screw you, and your self
+* Add tradeskill bag restocking
+* - Will pull in items from the tradeskill list only if you're carrying a leatherworking, engineering, herb or inscription bag
+* - Will NOT pull items for the normal list when you have one of these bags equipped
+* - Also will not pull from bank
 
-2.4.0.2-Beta
-    Add GUI config frame
-    Add "About" panel, TOC metadata
-    query server for water tooltips so GetItemInfo doesn't nil out
-    Add button to merchant frame, trim down slash handler
+### 3.0.2.15-Beta
 
-2.3.3.1-Beta
-    Initial release (DUH!)
+* Add scroll bar to config group box
+* Add group box to config
+* Use two columns for restock list
+* Add bank restocking
+*  - Doesn't try to do anything fancy like split stacks or pull from multiple stacks
+* Allow bags to be opened when config is shown
+* Add total spent output if chat output is on
+
+### 3.0.2.14-Beta
+
+* Remove 2.4.3 compat
+* Lowercase addon folders... fucking curse
+
+### 3.0.2.13-Beta
+
+* nilsafe, fucking uncached items
+* Only query items we don't have data on
+
+### 3.0.1.12-Beta
+
+* Update for wrath build 8962 config panel breakage
+* Embed update
+
+### 3.0.1.11-Beta
+
+* Fix water upgrade being lost if item info is not cached
+* Fix water upgrading when items are not cached
+* Embed update
+
+### 3.0.1.10-Beta
+
+* Load water list appropriate for the client version
+* Embed update
+
+### 3.0.1.9-Beta
+
+* New wrath water
+* Embed update
+
+### 2.4.3.8-Beta
+
+* Remove merchant button, we have LDB now
+
+### 2.4.3.7-Beta
+
+* Tweak launcher declaration to match the updated spec
+
+### 2.4.2.6-Beta
+
+* Add LDB quicklaunch button
+
+### 2.4.2.5-Beta
+
+* Account for cases where the items in the stock list are not cached (after a patch)
+
+### 2.4.2.4-Beta
+
+* Apply patch "Merchant button overlays SellOMatic buttons"
+
+### 2.4.1.3-Beta
+
+* Screw you, and your self
+
+### 2.4.0.2-Beta
+
+* Add GUI config frame
+* Add "About" panel, TOC metadata
+* query server for water tooltips so GetItemInfo doesn't nil out
+* Add button to merchant frame, trim down slash handler
+
+### 2.3.3.1-Beta
+
+* Initial release (DUH!)
