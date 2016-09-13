@@ -3,9 +3,6 @@
 ## Title: Steal Your Carbon
 ## Notes: Automatically restock items from vendors and your bank
 ## Author: Tekkub Stoutwrithe
-## Version: 5.1.0.24
-## X-Website: http://www.tekkub.net/
-## X-Email: tekkub-wow@googlegroups.com
 ## X-Category: Inventory
 ## X-Icon: Interface/Icons/INV_Qiraj_JewelGlyphed
 
